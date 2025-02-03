@@ -1,0 +1,78 @@
+{
+    "Actions": {
+        "Cancel": "Cancel",
+        "Delete": "Delete",
+        "Edit": "Edit",
+        "Export": "Export",
+        "ExportAs": "Export as {{format}}",
+        "ExportAsCSVorPDF": "Export as CSV or PDF"
+    },
+    "Auth": {
+        "ForgotPassword": {
+            "LogIn": "log in",
+            "PleaseContactYourSiteAdministrator": "Please contact your site administrator",
+            "ReturnTo": "Return to",
+            "Title": "Forgot password"
+        },
+        "Login": {
+            "ForgotPassword": "Forgot password",
+            "LogIn": "Log in",
+            "Title": "Login",
+            "Welcome": "Welcome to Nanolock MoT Monitoring tool"
+        }
+    },
+    "Common": {
+        "Error": "Error",
+        "MaxLengthOfUsername": "Max length of username is {{count}}",
+        "NanoLockOtDefenderIsActivated": "NanoLock OT Defender is activated",
+        "PasswordIsRequired": "Password is required",
+        "PoweredBy": "Powered by",
+        "UsernameIsRequired": "Username is required"
+    },
+    "Export": {
+        "ChooseFormat": "Choose format",
+        "ExportServices": "Export services",
+        "ExportPerformance": "Export performance"
+    },
+    "Nav": {
+        "Services": "Services"
+    },
+    "Roles": {
+        "Admin": "Admin",
+        "Admins": "Admins",
+        "Programmer": "Programmer",
+        "Programmers": "Programmers",
+        "Supervisor": "Supervisor",
+        "Supervisors": "Supervisors"
+    },
+    "Services": {
+        "Export": {
+            "Title": "Services Report - {{date}}"
+        },
+        "Name": "Name",
+        "Status": "Status",
+        "Title": "Services",
+        "Version": "Version"
+    },
+    "Performance": {
+        "Cpu": "CPU",
+        "Export": {
+            "Title": "Performance Report - {{date}}"
+        },
+        "Memory": "Memory",
+        "ProcessName": "Process Name",
+        "Title": "Performance"
+    },
+    "Toaster": {
+        "ExportError": "Export error",
+        "NoDataForExport": "No data for export",
+        "UserCreated": "User created",
+        "UserRemoved": "User removed",
+        "UserUpdated": "User updated"
+    },
+    "Toolbar": {
+        "Profile": "Profile",
+        "SignOut": "Logout",
+        "SignedInAs": "Logged in as"
+    }
+}

@@ -1,0 +1,9 @@
+<div class="w-full">
+    <app-services-title
+        (export)="downloadFile($event)"
+    ></app-services-title>
+
+    <app-services-table #tableComponent
+                        [exportFormat]="exportFormat"
+    ></app-services-table>
+</div>

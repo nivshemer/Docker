@@ -1,0 +1,63 @@
+﻿pg_replication:
+  query: "SELECT CASE WHEN NOT pg_is_in_recovery() THEN 0 ELSE GREATEST (0, EXTRACT(EPOCH FROM (now() - pg_last_xact_replay_timestamp()))) END AS lag"
+  master: true
+  metrics:
+    - lag:
+        usage: "GAUGE"
+        description: "Replication lag behind master in seconds"
+
+pg_replica:
+  query: "select count(*) from pg_stat_replication"
+  master: true
+  metrics:
+    - count:
+        usage: "GAUGE"
+        description: "Count of replication"
+
+pg_postmaster:
+  query: "SELECT pg_postmaster_start_time as start_time_seconds from pg_postmaster_start_time()"
+  master: true
+  metrics:
+    - start_time_seconds:
+        usage: "GAUGE"
+        description: "Time at which postmaster started"
+        
+pg_test_status:
+  query: "SELECT CASE WHEN NOT pg_is_in_recovery() THEN 0 ELSE GREATEST (0, EXTRACT(EPOCH FROM (now() - pg_last_xact_replay_timestamp()))) END AS lag"
+  master: true
+  metrics:
+    - lag:
+        usage: "GAUGE"
+        description: "Replication lag behind master in seconds"      
+
+# a query meant to check the master and slave sync status
+# will return a number acording to this enum
+#   0 - Master: slave is not synced
+#   1 - Slave: master is not synced
+#   2 - Master
+#   3 - Master: slave is synced
+#   4 - Slave: master is synced
+
+# pg_master_slave:
+#   query: "select case WHEN EXISTS (SELECT * FROM pg_stat_replication) THEN (SELECT CASE WHEN state = 'streaming' THEN 3 ELSE 0 END FROM pg_stat_replication LIMIT 1) WHEN pg_is_in_recovery() THEN (SELECT CASE WHEN status = 'streaming' THEN 4 ELSE 1 END FROM pg_stat_wal_receiver LIMIT 1) ELSE 2 END;"
+#   master: true
+#   metrics:
+#     - status:
+#         usage: "GAUGE"
+#         description: "master slave sync status"
+
+pg_master_slave_sync:
+  query: "select case WHEN EXISTS (SELECT * FROM pg_stat_replication) THEN 1 WHEN pg_is_in_recovery() THEN 0 ELSE 1 END as state;"
+  master: true
+  metrics:
+    - state:
+        usage: "GAUGE"
+        description: "this query will return 1 if db is mater and 0 if db is slave"
+
+pg_master_slave:
+  query: "select case WHEN EXISTS (SELECT * FROM pg_stat_replication ) THEN ( SELECT CASE WHEN state = 'streaming' THEN 1 ELSE 0 END FROM pg_stat_replication LIMIT 1) WHEN pg_is_in_recovery() THEN (SELECT CASE WHEN status = 'streaming' THEN 1 ELSE 0 END FROM pg_stat_wal_receiver LIMIT 1) ELSE 1 END as status;"
+  master: true
+  metrics:
+    - status:
+        usage: "GAUGE"
+        description: "master slave sync status 0 is not synced 1 is synced"

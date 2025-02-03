@@ -1,0 +1,217 @@
+$base-color: rgb(254, 169, 49);
+$base-color-50: #fff5e6;
+$base-color-100: #ffe5c1;
+
+
+:host {
+    display: flex;
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+}
+
+// // Global table settings
+
+::ng-deep .mat-mdc-table {
+    table-layout: fixed !important;
+}
+
+// My changes for main nanolock custom color
+
+::ng-deep table:not(.days.weeks) thead {
+    //background-color: $base-color !important;
+    & tr {
+        height: 3rem !important;
+
+        & th {
+            background-color: $base-color !important;
+
+            &:first-child {
+                border-top-left-radius: 1rem !important;
+            }
+
+            &:last-child {
+                border-top-right-radius: 1rem !important;
+            }
+        }
+    }
+}
+
+::ng-deep table:not(.days.weeks) th {
+    color: #FFFFFF !important;
+    font-size: 1rem !important;
+}
+
+::ng-deep td {
+    overflow: hidden !important;
+    background-color: #FFFFFF;
+}
+
+::ng-deep .bg-primary {
+    background-color: $base-color !important;
+}
+
+::ng-deep .mat-sort-header-arrow {
+    color: #FFFFFF !important;
+}
+
+// /Table
+
+// DatePicker
+
+::ng-deep .select-start, ::ng-deep .select-end {
+    background-color: $base-color !important;
+}
+
+::ng-deep .theme-dark-blue .bs-datepicker-body table td.week span {
+    color: $base-color !important;
+}
+
+// /DatePicker
+
+::ng-deep .theme-dark-blue .bs-datepicker-head {
+    background-color: $base-color !important;
+}
+
+::ng-deep .bg-primary-50 {
+    background-color: $base-color-50 !important;
+}
+
+::ng-deep .bg-primary-100 {
+    background-color: $base-color-100 !important;
+}
+
+::ng-deep button.bg-primary {
+    background-color: $base-color !important;
+    color: #FFFFFF !important;
+
+    &:disabled {
+        opacity: 0.38 !important;
+
+        & span {
+            color: #FFFFFF !important;
+        }
+    }
+
+    &.mat-mdc-outlined-button {
+        border-color: $base-color !important;
+        color: $base-color !important;
+        background-color: transparent !important;
+    }
+}
+
+::ng-deep button.bg-primary-secondary {
+    border: 1px solid $base-color !important;
+    color: $base-color !important;
+
+    &:disabled {
+        opacity: 0.38 !important;
+
+        & span {
+            color: #FFFFFF !important;
+        }
+    }
+}
+
+::ng-deep button.square {
+    border-radius: 5px !important;
+}
+
+::ng-deep .mdc-list-item--selected .mdc-list-item__primary-text {
+    color: black !important;
+}
+
+::ng-deep .mat-mdc-option-active.mdc-list-item--selected .mdc-list-item__primary-text {
+    color: $base-color !important;
+}
+
+::ng-deep .mat-primary .mat-pseudo-checkbox-checked,
+.mat-primary .mat-pseudo-checkbox-indeterminate {
+    background: $base-color !important;
+}
+
+::ng-deep mat-chip {
+    background-color: $base-color !important;
+}
+
+::ng-deep .text-primary {
+    color: $base-color !important;
+}
+
+::ng-deep .mat-checkbox-indeterminate, ::ng-deep .mat-checkbox-checked {
+    &.mat-primary .mat-checkbox-background {
+        background-color: $base-color !important;
+    }
+}
+
+::ng-deep .mat-checkbox-indeterminate, ::ng-deep .mat-checkbox-checked {
+    &.mat-primary .mat-checkbox-background {
+        background-color: $base-color !important;
+    }
+}
+
+::ng-deep mat-icon.mat-icon.mat-chip-remove.mat-chip-trailing-icon.material-icons.mat-icon-no-color {
+    opacity: 0.8 !important;
+}
+
+::ng-deep .mdc-linear-progress__bar-inner {
+    border-color: $base-color !important;
+}
+
+// /My changes for main nanolock custom color
+
+::ng-deep .phone__code__autocomplete {
+    font-size: .75rem !important;
+    padding: 0 5px 0 5px !important;
+}
+
+::ng-deep .select {
+    min-width: 100% !important;
+}
+
+::ng-deep mat-error {
+    margin-bottom: 1px !important;
+}
+
+// Pagination
+
+::ng-deep .mat-mdc-paginator-container {
+    justify-content: center !important;
+}
+
+// /Pagination
+
+// MatFormField
+::ng-deep .padding-0 .mat-form-field-wrapper {
+    background-color: #fff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+::ng-deep .mat-mdc-form-field.mat-form-field-appearance-fill.mat-focused:not(.mat-form-field-invalid) mat-label {
+    color: $base-color !important;
+}
+
+::ng-deep .mat-mdc-form-field.mat-form-field-appearance-fill.mat-focused:not(.mat-form-field-invalid) .mat-mdc-text-field-wrapper {
+    border-color: $base-color !important;
+}
+
+// /MatFormField
+
+// Dialog (modal)
+
+::ng-deep .mat-mdc-dialog-container {
+    .mat-mdc-dialog-surface {
+        padding: 0 !important;
+
+        h1 {
+            padding: 24px 0;
+
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 0 20px;
+        }
+    }
+}
+
+// /Dialog (modal)

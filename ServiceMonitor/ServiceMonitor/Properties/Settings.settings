@@ -1,0 +1,73 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ServiceMonitor.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="TimeZone" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Israel Standard Time</Value>
+    </Setting>
+    <Setting Name="Interval" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">5000</Value>
+    </Setting>
+    <Setting Name="Processes" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">
+          [
+          {
+          "ProcessName": "NanoLockSec.Services.Storage",
+          "CommandLine": "cd c:\\NanoLock\\DataStoreService\r\nstart /min \"DataStore Service\" dotnet NanoLockSec.Services.Storage.dll",
+          "DisplayName": "DataStore Service"
+          },
+           {
+          "ProcessName": "NanoLockSec.Services.DeviceKeyStore",
+          "CommandLine": "cd c:\\NanoLock\\DeviceKeyStore\r\nstart /min \"Device Key Store\" dotnet NanoLockSec.Services.DeviceKeyStore.dll",
+          "DisplayName": "Device Key Store"
+          },
+          {
+          "ProcessName": "NanoLockSec.Services.DeviceAuthentication",
+          "CommandLine": "cd c:\\NanoLock\\DeviceAuthentication\r\nstart /min \"Device Authentication\" dotnet NanoLockSec.Services.DeviceAuthentication.dll",
+          "DisplayName": "Device Authentication"
+          },
+          {
+          "ProcessName": "NanoLockSec.Services.Devices",
+          "CommandLine": "cd c:\\NanoLock\\DeviceServices\r\nstart /min \"Device Service\" dotnet NanoLockSec.Services.Devices.dll",
+          "DisplayName": "Device Service"
+          },
+          {
+          "ProcessName": "NanoLockSec.Services.OverTheAir",
+          "CommandLine": "cd c:\\NanoLock\\OTAServer\r\nstart /min \"OTA Service\" dotnet NanoLockSec.Services.OverTheAir.dll",
+          "DisplayName": "OTA Service"
+          },
+          {
+          "ProcessName": "NanoLockSec.Services.Management.Api",
+          "CommandLine": "cd c:\\NanoLock\\ManagementAPI\r\nstart /min \"Management API\" dotnet NanoLockSec.Services.Management.Api.dll",
+          "DisplayName": "Management API"
+          },
+          {
+          "ProcessName": "NanoLockSec.Services.Data.DataReadyProcessor",
+          "CommandLine": "cd c:\\NanoLock\\DataReadyProcessor\r\nstart /min \"Data Ready Processor\" dotnet NanoLockSec.Services.Data.DataReadyProcessor.dll",
+          "DisplayName": "Data Ready Processor"
+          },
+          {
+          "ProcessName": "NanoLockSec.Services.Alerts",
+          "CommandLine": "cd c:\\NanoLock\\AlertsManagement\r\nstart /min \"Alerts Management\" dotnet NanoLockSec.Services.Alerts.dll",
+          "DisplayName": "Alerts Management"
+          },
+          {
+          "ProcessName": "NanoLockSec.Services.Extensibility",
+          "CommandLine": "cd c:\\NanoLock\\ExtensibilityService\r\nstart /min \"Extensibility Service\" dotnet NanoLockSec.Services.Extensibility.dll",
+          "DisplayName": "Extensibility Service"
+          },
+          {
+          "ProcessName": "NanoLockSec.Services.Configuration",
+          "CommandLine": "cd c:\\NanoLock\\ConfigurationService\r\nstart /min \"Configuration Service\" dotnet NanoLockSec.Services.Configuration.dll",
+          "DisplayName": "Configuration Service"
+          },
+          {
+          "ProcessName": "NanoLockSec.Services.Identity",
+          "CommandLine": "cd c:\\NanoLock\\IdentityService\r\nstart /min \"Identity Service\" dotnet NanoLockSec.Services.Identity.dll",
+          "DisplayName": "Identity Service"
+          }
+          ]
+        </Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

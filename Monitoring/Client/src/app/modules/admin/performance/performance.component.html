@@ -1,0 +1,9 @@
+<div class="w-full">
+    <app-performance-title
+        (export)="downloadFile($event)"
+    ></app-performance-title>
+
+    <app-performance-table
+        [exportFormat]="exportFormat"
+    ></app-performance-table>
+</div>

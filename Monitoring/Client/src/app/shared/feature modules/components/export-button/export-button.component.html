@@ -1,0 +1,10 @@
+<button
+    class="bg-primary mr-5"
+    mat-raised-button
+    [matTooltip]="formats | exportButtonTooltip"
+    matTooltipPosition="above"
+    (click)="export.emit()"
+    *transloco="let t; read: 'Actions'"
+>
+    <mat-icon svgIcon="heroicons_solid:save"></mat-icon> &nbsp; {{t('Export')}}
+</button>

@@ -1,0 +1,172 @@
+version: '3.5'
+services:   
+  assets:  
+    #depends_on:    
+    # - configuration
+    restart: unless-stopped
+    container_name: assets
+    hostname: assets
+    image: europe-west1-docker.pkg.dev/macro-kiln-247514/images/assets-service:${ASSETS_TAG}
+    env_file:
+    - '/nanolock/deployment-scripts/configuration.env'
+    - '/nanolock/deployment-scripts/.secrets.env'
+    healthcheck:
+            test: [CMD-SHELL, 'wget -q -O - http://localhost:8071/health || exit 1']
+            interval: 10m
+            timeout: 60s  
+    volumes:
+    - /nanolock/service-configurations/assets.json:/app/appsettings.json:z
+    - /nanolock/assets/files:/app/files:z
+    - /nanolock/assets/failsafe:/app/failsafe_backups:z
+    - /nanolock/stores/:/root/.dotnet/corefx/cryptography/x509stores/:z
+      # - /nanolock/nginx/cert.crt:/etc/ssl/certs/cert.crt:z
+    # command: sh -c "update-ca-certificates"
+    networks:
+      nanolock:
+        ipv4_address: 172.18.0.112
+  notifications:  
+    # depends_on:    
+    # - configuration
+    restart: unless-stopped
+    container_name: notifications
+    hostname: notifications
+    image: europe-west1-docker.pkg.dev/macro-kiln-247514/images/notifications-service:${NOTIFICATIONS_TAG}
+    env_file:
+    - '/nanolock/deployment-scripts/configuration.env'
+    - '/nanolock/deployment-scripts/.secrets.env'
+    healthcheck:
+            test: [CMD-SHELL, 'wget -q -O - http://localhost:8095/health || exit 1']
+            interval: 10m
+            timeout: 60s  
+    volumes:
+    - /nanolock/stores/:/root/.dotnet/corefx/cryptography/x509stores/:z
+    - /nanolock/service-configurations/notifications.json:/app/appsettings.json:z
+    - /nanolock/nginx/cert.crt:/etc/ssl/certs/cert.crt:z
+    command: sh -c "update-ca-certificates"
+    networks:
+      nanolock:
+        ipv4_address: 172.18.0.124
+  groupsandpolicies:  
+    # depends_on:    
+    # - configuration
+    restart: unless-stopped
+    container_name: groupsandpolicies
+    hostname: groupsandpolicies
+    image: europe-west1-docker.pkg.dev/macro-kiln-247514/images/groupsandpolicies-service:${GROUPSANDPOLICIES_TAG}
+    env_file:
+    - '/nanolock/deployment-scripts/configuration.env'
+    - '/nanolock/deployment-scripts/.secrets.env'
+    healthcheck:
+            test: [CMD-SHELL, 'wget -q -O - http://localhost:8096/health || exit 1']
+            interval: 10m
+            timeout: 60s  
+    volumes:
+    - /nanolock/stores/:/root/.dotnet/corefx/cryptography/x509stores/:z
+    - /nanolock/service-configurations/groups-and-policies.json:/app/appsettings.json:z
+    networks:
+      nanolock:
+        ipv4_address: 172.18.0.127         
+  identity:  
+    restart: unless-stopped
+    container_name: identity
+    hostname: identity
+    image: europe-west1-docker.pkg.dev/macro-kiln-247514/images/identity-service:${IDENTITY_TAG}
+    env_file:
+    - '/nanolock/deployment-scripts/configuration.env'
+    - '/nanolock/deployment-scripts/.secrets.env'
+    healthcheck:
+            test: [CMD-SHELL, 'wget -q -O - http://localhost:8097/health || exit 1']
+            interval: 10m
+            timeout: 60s  
+    volumes:
+    - /nanolock/stores/:/root/.dotnet/corefx/cryptography/x509stores/:z
+    - /nanolock/service-configurations/identity.json:/app/appsettings.json:z
+    networks:
+      nanolock:
+        ipv4_address: 172.18.0.137         
+  device-key-store:  
+    # depends_on:            
+        # - guid-generation
+    restart: unless-stopped
+    container_name: device-key-store
+    hostname: device-key-store
+    image: europe-west1-docker.pkg.dev/macro-kiln-247514/images/device-key-store:${DEVICE_KEY_STORE_TAG}
+    env_file:
+    - '/nanolock/deployment-scripts/configuration.env'
+    - '/nanolock/deployment-scripts/.secrets.env'
+    healthcheck:
+            test: [CMD-SHELL, 'wget -q -O - http://localhost:8092/health || exit 1']
+            interval: 10m
+            timeout: 60s  
+    volumes:
+    - /nanolock/service-configurations/device-key-store.json:/app/appsettings.json:z
+    - /nanolock/stores/:/root/.dotnet/corefx/cryptography/x509stores/:z
+    # - /nanolock/nginx/cert.crt:/etc/ssl/certs/cert.crt:z
+    # command: sh -c "update-ca-certificates"
+    networks:
+      nanolock:
+        ipv4_address: 172.18.0.117 
+  otd-service:  
+    depends_on:    
+    # - storage
+    # - guid-generation
+    - assets
+    # - device-key-store
+    restart: unless-stopped
+    container_name: otd-service
+    hostname: otd-service
+    image: europe-west1-docker.pkg.dev/macro-kiln-247514/images/otd-service:${OTD_TAG}
+    env_file:
+    - '/nanolock/deployment-scripts/configuration.env'
+    - '/nanolock/deployment-scripts/.secrets.env'
+    healthcheck:
+            test: [CMD-SHELL, 'wget -q -O - http://localhost:8070/health || exit 1']
+            interval: 10m
+            timeout: 60s  
+    environment:
+    - DUMMY_DATA=/dummy-data
+    volumes:
+    - /nanolock/service-configurations/otd.json:/app/appsettings.json:z
+    # - /nanolock/factorytalkusers.json:/app/factorytalkusers.json:z
+    - /nanolock/stores/:/root/.dotnet/corefx/cryptography/x509stores/:z
+    - /nanolock/nginx/cert.crt:/etc/ssl/certs/cert.crt:z
+    - /nanolock/dummy-data:/dummy-data:z
+    command: sh -c "update-ca-certificates"
+    networks:
+      nanolock:
+        ipv4_address: 172.18.0.116    
+  mngtclient:  
+    restart: unless-stopped
+    container_name: mngtclient
+    hostname: mngtclient
+    image: europe-west1-docker.pkg.dev/macro-kiln-247514/images/mngtclient:${MNGT_TAG}
+    env_file:
+    - '/nanolock/deployment-scripts/.env' 
+    volumes:
+    - ${NANOLOCK_HOME}/images/logo:/app/src/assets/images/logo:z
+    - ${NANOLOCK_HOME}/support/help.component.html:/app/src/app/layout/common/user/entry/help/help.component.html:z
+    ports:
+    - 4201:4201
+    networks:
+      nanolock:
+        ipv4_address: 172.18.0.123
+  sms-gateway:  
+    restart: unless-stopped
+    container_name: sms-gateway
+    hostname: sms-gateway
+    image: europe-west1-docker.pkg.dev/macro-kiln-247514/images/smsgateway-service:${SMS_TAG}
+    env_file:
+    - '/nanolock/deployment-scripts/.env' 
+    volumes:
+    - /nanolock/service-configurations/smsgateway-service.json:/app/appsettings.json:z
+    ports:
+    - 3001:3001
+    networks:
+      nanolock:
+        ipv4_address: 172.18.0.125  
+networks:
+  default:
+    external:
+      name: nanolock
+  nanolock:
+    external: true

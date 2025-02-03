@@ -1,0 +1,43 @@
+.form {
+    max-width: 96% !important;
+    width: 96% !important;
+}
+
+.calendar {
+    background-color: white;
+    padding: 12px 5px 12px 12px;
+    border: 1px solid #CBD5E1;
+
+    & mat-icon {
+        color: rgb(148, 163, 184);
+    }
+}
+
+#removeFilters {
+    position: absolute;
+    top: -9px;
+    right: -29px;
+    color: white;
+    font-size: 11px;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: red;
+    text-align: center;
+    //display: inline-block;
+    transition: transform .2s ease-in-out;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    pointer-events: none;
+}
+
+.mat-badge-content {
+    background-color: #EA463C !important;
+    z-index: 1000 !important;
+    right: -33px !important;
+}

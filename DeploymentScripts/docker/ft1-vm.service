@@ -1,0 +1,16 @@
+[Unit]
+Description=VirtualBox VM FT1
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/VBoxManage startvm FT1 --type headless
+#ExecStop=/usr/bin/VBoxManage controlvm FT1 poweroff
+
+User=ubuntu
+Group=ubuntu
+
+Restart=always
+
+[Install]
+WantedBy=default.target
+

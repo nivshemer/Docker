@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Service Versions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .environment-container {
+            margin-bottom: 20px;
+        }
+        .environment {
+            margin: 10px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: none;
+        }
+        .environment.active {
+            display: block;
+        }
+        .toggle-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+        }
+        .toggle-button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .comparison-result {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .highlight-yellow {
+            background-color: yellow;
+        }
+        .highlight-green {
+            background-color: lightgreen;
+        }
+    </style>
+    <script>
+        function toggleEnvironment(environment) {
+            var environmentDiv = document.getElementById(environment);
+            environmentDiv.classList.toggle('active');
+        }
+
+        function compareEnvironments() {
+            var environments = ['dev21', 'dev30', 'dev40', 'qa21', 'qa30'];
+            var comparisonResult = document.getElementById("comparison-result");
+            comparisonResult.innerHTML = "<h2>Comparison Result</h2>";
+
+            var environmentData = {};
+
+            environments.forEach(function(env) {
+                var table = document.getElementById(env).querySelector("tbody");
+                environmentData[env] = getTableData(table);
+            });
+
+            var allServices = new Set();
+            environments.forEach(function(env) {
+                Object.keys(environmentData[env]).forEach(function(service) {
+                    allServices.add(service);
+                });
+            });
+
+            allServices.forEach(function(service) {
+                var versions = environments.map(function(env) {
+                    return environmentData[env][service] || 'Not Found';
+                });
+
+                var baseVersion = versions.find(v => v !== 'Not Found');
+                var result = versions.map(function(version, i) {
+                    if (version === 'Not Found') {
+                        return `<span>${environments[i]}: ${version}</span>`;
+                    } else if (version === baseVersion) {
+                        return `<span class="highlight-green">${environments[i]}: ${version}</span>`;
+                    } else {
+                        return `<span class="highlight-yellow">${environments[i]}: ${version}</span>`;
+                    }
+                });
+
+                comparisonResult.innerHTML += `<p><strong>${service}:</strong> ${result.join(', ')}</p>`;
+            });
+        }
+
+        function getTableData(table) {
+            var data = {};
+            Array.from(table.rows).forEach(row => {
+                var cells = row.cells;
+                if (cells.length > 1) { // Ensure there are at least two cells (Service and Version)
+                    data[cells[0].textContent.trim()] = cells[1].textContent.trim();
+                }
+            });
+            return data;
+        }
+
+        // Auto-refresh the page every 30 seconds
+        setTimeout(function(){
+            location.reload();
+        }, 180000);
+    </script>
+</head>
+<body>
+    <h1>Docker Service Versions</h1>
+
+    <div class="environment-container">
+        <button class="toggle-button" onclick="toggleEnvironment('dev21')">Development 2.1</button>
+        <div id="dev21" class="environment">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Version</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+<tr><td>sms-gateway</td> <td>smsgateway-service:1.0.6</td> <td>Up About an hour</td></tr>
+<tr><td>mngtclient</td> <td>mngtclient:1.1.626</td> <td>Up About an hour</td></tr>
+<tr><td>identity</td> <td>identity-service:1.1.103</td> <td>Up 3 days (unhealthy)</td></tr>
+<tr><td>otd-service</td> <td>otd-service:1.0.169</td> <td>Up 3 days (healthy)</td></tr>
+<tr><td>groupsandpolicies</td> <td>groupsandpolicies-service:1.1.75</td> <td>Up 6 days (healthy)</td></tr>
+<tr><td>device-key-store</td> <td>device-key-store:1.0.105</td> <td>Up 11 days (healthy)</td></tr>
+<tr><td>assets</td> <td>assets-service:1.0.113</td> <td>Up 11 days (healthy)</td></tr>
+<tr><td>notifications</td> <td>notifications-service:1.0.12</td> <td>Up 11 days (healthy)</td></tr>
+
+
+
+            </table>
+        </div>
+    </div>
+
+    <div class="environment-container">
+        <button class="toggle-button" onclick="toggleEnvironment('dev30')">Development 3.0</button>
+        <div id="dev30" class="environment">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Version</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+<tr><td>mngtclient</td> <td>mngtclient:1.1.626</td> <td>Up About an hour</td></tr>
+<tr><td>sms-gateway</td> <td>smsgateway-service:1.0.6</td> <td>Up About an hour</td></tr>
+<tr><td>notifications</td> <td>notifications-service:1.0.19</td> <td>Up 2 hours (healthy)</td></tr>
+<tr><td>identity</td> <td>identity-service:1.1.103</td> <td>Up 3 days (unhealthy)</td></tr>
+<tr><td>otd-service</td> <td>otd-service:1.0.169</td> <td>Up 3 days (healthy)</td></tr>
+<tr><td>groupsandpolicies</td> <td>groupsandpolicies-service:1.1.75</td> <td>Up 6 days (healthy)</td></tr>
+
+
+
+<tr><td>device-key-store</td> <td>device-key-store:1.0.105</td> <td>Up 7 days (healthy)</td></tr>
+<tr><td>assets</td> <td>assets-service:1.0.113</td> <td>Up 7 days (healthy)</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="environment-container">
+        <button class="toggle-button" onclick="toggleEnvironment('dev40')">Development 4.0</button>
+        <div id="dev40" class="environment">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Version</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+<tr><td>mngtclient</td> <td>mngtclient:1.1.605</td> <td>Up 20 hours </td></tr>
+<tr><td>sms-gateway</td> <td>smsgateway-service:1.0.6</td> <td>Up 20 hours </td></tr>
+<tr><td>otd-service</td> <td>otd-service:1.0.180</td> <td>Up 20 hours (healthy)</td></tr>
+<tr><td>identity</td> <td>identity-service:1.1.104</td> <td>Up 25 hours (healthy)</td></tr>
+<tr><td>groupsandpolicies</td> <td>groupsandpolicies-service:1.1.71</td> <td>Up 2 weeks (healthy)</td></tr>
+<tr><td>assets</td> <td>assets-service:1.0.113</td> <td>Up 4 weeks (healthy)</td></tr>
+<tr><td>notifications</td> <td>notifications-service:1.0.12</td> <td>Up 4 weeks (healthy)</td></tr>
+<tr><td>device-key-store</td> <td>device-key-store:1.0.105</td> <td>Up 4 weeks (healthy)</td></tr>
+
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="environment-container">
+        <button class="toggle-button" onclick="toggleEnvironment('qa21')">QA 2.1</button>
+        <div id="qa21" class="environment">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Version</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+<tr><td>mngtclient</td> <td>mngtclient:1.1.626</td> <td>Up About an hour</td></tr>
+<tr><td>sms-gateway</td> <td>smsgateway-service:1.0.6</td> <td>Up About an hour</td></tr>
+<tr><td>otd-service</td> <td>otd-service:1.0.169</td> <td>Up 27 hours (healthy)</td></tr>
+<tr><td>identity</td> <td>identity-service:1.1.103</td> <td>Up 27 hours (unhealthy)</td></tr>
+<tr><td>groupsandpolicies</td> <td>groupsandpolicies-service:1.1.75</td> <td>Up 6 days (healthy)</td></tr>
+<tr><td>notifications</td> <td>notifications-service:1.0.12</td> <td>Up 11 days (healthy)</td></tr>
+<tr><td>assets</td> <td>assets-service:1.0.113</td> <td>Up 11 days (healthy)</td></tr>
+<tr><td>device-key-store</td> <td>device-key-store:1.0.105</td> <td>Up 11 days (healthy)</td></tr>
+
+
+
+            </table>
+        </div>
+    </div>
+
+    <div class="environment-container">
+        <button class="toggle-button" onclick="toggleEnvironment('qa30')">QA 3.0</button>
+        <div id="qa30" class="environment">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Version</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+<tr><td>mngtclient</td> <td>mngtclient:1.1.626</td> <td>Up About an hour</td></tr>
+<tr><td>sms-gateway</td> <td>smsgateway-service:1.0.6</td> <td>Up About an hour</td></tr>
+<tr><td>identity</td> <td>identity-service:1.1.103</td> <td>Up 27 hours (unhealthy)</td></tr>
+<tr><td>otd-service</td> <td>otd-service:1.0.169</td> <td>Up 27 hours (healthy)</td></tr>
+<tr><td>notifications</td> <td>notifications-service:1.0.19</td> <td>Up 27 hours (healthy)</td></tr>
+<tr><td>groupsandpolicies</td> <td>groupsandpolicies-service:1.1.75</td> <td>Up 6 days (healthy)</td></tr>
+<tr><td>device-key-store</td> <td>device-key-store:1.0.105</td> <td>Up 7 days (healthy)</td></tr>
+<tr><td>assets</td> <td>assets-service:1.0.113</td> <td>Up 7 days (healthy)</td></tr>
+
+
+
+            </table>
+        </div>
+    </div>
+
+    <div id="comparison-result" class="comparison-result"></div>
+
+    <button class="toggle-button" onclick="compareEnvironments()">Compare Environments</button>
+</body>
+</html>
+
+
+

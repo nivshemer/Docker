@@ -1,0 +1,304 @@
+version: '3.5'
+services:
+    elasticsearch:
+        container_name: elasticsearch
+        hostname: elasticsearch
+        image: 'docker.elastic.co/elasticsearch/elasticsearch:8.7.0'
+        restart: unless-stopped
+        environment:
+            - cluster.name=docker-cluster
+            - bootstrap.memory_lock=true
+        ulimits:
+            memlock: {soft: -1, hard: -1}
+        volumes:
+            - '${NANOLOCK_HOME}/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:z'
+            - '${NANOLOCK_HOME}/elasticsearch/jvm.options:/usr/share/elasticsearch/config/jvm.options:z'
+            - '${NANOLOCK_HOME}/elasticsearch/data:/usr/share/elasticsearch/data:z'
+            - '${NANOLOCK_HOME}/elasticsearch/logs:/usr/share/elasticsearch/logs:z'
+        networks:
+          nanolock:
+            ipv4_address: 172.18.0.100
+    kibana:
+        restart: unless-stopped
+        container_name: kibana
+        hostname: kibana
+        image: 'docker.elastic.co/kibana/kibana:8.7.0'
+        volumes:
+            - ${NANOLOCK_HOME}/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:z
+            - ${NANOLOCK_HOME}/kibana/healthcheck.sh:/healthcheck.sh:ro
+        networks:
+          nanolock:
+            ipv4_address: 172.18.0.101
+    filebeat:
+      image: docker.elastic.co/beats/filebeat:8.7.0
+      restart: unless-stopped
+      container_name: filebeat
+      hostname: filebeat
+      restart: unless-stopped
+      user: root
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock:ro
+        - /var/lib/docker/containers/:/var/lib/docker/containers/:ro
+        - ${NANOLOCK_HOME}/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:Z        
+        - ${NANOLOCK_HOME}/rabbit-mq/logs:/var/log/rabbitmq:ro
+      command: --strict.perms=false -e
+      networks:
+        nanolock:
+          ipv4_address: 172.18.0.102    
+    postgres:
+        restart: unless-stopped
+        container_name: postgres
+        hostname: postgres
+        image: 'postgres:12.0-alpine'
+        ports:
+            - '5432:5432'
+        env_file:
+            - ${NANOLOCK_HOME}/postgres/.postgres.env
+        environment:
+            REPLICATION_MODE: master
+            REPLICATION_SSLMODE:
+            POSTGRES_INITDB_ARGS: '--lc-collate=default --locale=default --lc-ctype=default'
+        healthcheck:
+            test: [CMD-SHELL, '/etc/postgresql/db_backup.sh && pg_isready -U nanolocksec']
+            interval: 60m
+            timeout: 60s  
+        volumes:
+            - '${NANOLOCK_HOME}/postgres/postgres.conf:/etc/postgresql/postgresql.conf:z'
+            - '${NANOLOCK_HOME}/postgres/pg_hba.conf:/etc/postgresql/pg_hba.conf:z'
+            - '${NANOLOCK_HOME}/postgres/data:/var/lib/postgresql/data:z'
+            - '${NANOLOCK_HOME}/postgres/archivedir:/var/lib/postgresql/12/main/archivedir:z'
+            - '${NANOLOCK_HOME}/postgres/db_backup.sh:/etc/postgresql/db_backup.sh:z'
+
+        command: postgres -c 'config_file=/etc/postgresql/postgresql.conf' -c 'hba_file=/etc/postgresql/pg_hba.conf'
+        networks:
+          nanolock:
+            ipv4_address: 172.18.0.103
+    nginx:
+        restart: unless-stopped
+        container_name: nginx
+        hostname: nginx
+        image: europe-west1-docker.pkg.dev/macro-kiln-247514/images/infra/nginx:1.0.3
+        ports:
+            - '80:80'
+            - '443:443'
+            - '8070:8070'
+            - '8074:8074'
+            - '8095:8095'
+            - '8078:8078'
+            - '8073:8073'
+            - '9200:9200'
+            - '8096:8096'
+            - '5000:5000'
+            - '5001:5001'
+        env_file:
+        - '${NANOLOCK_HOME}/deployment-scripts/domain-names.env'
+        volumes:
+            - '${NANOLOCK_HOME}/demo:/demo:Z'
+            - '${NANOLOCK_HOME}/nginx/nginx.conf:/etc/nginx/templates/nginx.conf:Z'
+            - '${NANOLOCK_HOME}/nginx/cert.crt:/etc/nginx/cert.crt:Z'
+            - '${NANOLOCK_HOME}/nginx/cert.key:/etc/nginx/cert.key:Z'
+            - '${NANOLOCK_HOME}/nginx/logs:/var/log/nginx:Z'
+            - '${NANOLOCK_HOME}/nginx/conf.d:/etc/nginx/templates/conf.d:Z'
+        networks:
+          nanolock:
+            ipv4_address: 172.18.0.104
+    redis:
+        container_name: redis
+        hostname: redis
+        image: 'redis:5.0.6-alpine'
+        volumes:
+            - '/${NANOLOCK_HOME}/redis/data:/data:z'
+            - '/${NANOLOCK_HOME}/redis/redis.conf:/etc/redis/redis.conf:Z'
+        restart: unless-stopped
+        ports:
+            - '6379:6379'
+        healthcheck:
+            test: [CMD-SHELL, 'netstat -ntpl | grep [0-9]:$${1:-6379} -q']
+            interval: 10m
+            timeout: 60s  
+        sysctls:
+            net.core.somaxconn: 511
+        command: 'redis-server /etc/redis/redis.conf'
+        networks:
+          nanolock:
+            ipv4_address: 172.18.0.105
+    redis-commander:
+        container_name: redis-commander
+        hostname: redis-commander
+        image: 'rediscommander/redis-commander:latest'
+        restart: unless-stopped
+        environment:
+            - 'REDIS_HOSTS=db00:redis:6379:0:nanolocksec'
+        healthcheck:
+            test: [CMD-SHELL, 'netstat -ntpl | grep [0-9]:$${1:-8081} -q']
+            interval: 10m
+            timeout: 60s  
+        networks:
+          nanolock:
+            ipv4_address: 172.18.0.106
+    rabbit-mq:
+        container_name: rabbit-mq
+        hostname: rabbit-mq
+        image: 'rabbitmq:3.11-management-alpine'
+        restart: unless-stopped
+        environment:              
+          RABBITMQ_LOG_BASE: "/var/log/rabbitmq"
+          RABBITMQ_LOGS: "/var/log/rabbitmq/rabbitmq.log"
+        volumes:
+            - '${NANOLOCK_HOME}/rabbit-mq/data:/var/lib/rabbitmq'
+            - '${NANOLOCK_HOME}/rabbit-mq/logs:/var/log/rabbitmq'
+            - '${NANOLOCK_HOME}/rabbit-mq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:z'
+        ports:
+            - '5672:5672'
+            - '8883:8883'
+            - '15672:15672'
+            - '1883:1883'            
+        healthcheck:
+            test: [CMD-SHELL, 'rabbitmq-diagnostics -q check_port_connectivity && rabbitmq-diagnostics -q node_health_check']
+            interval: 10m
+            timeout: 60s  
+        networks:
+          nanolock:
+            ipv4_address: 172.18.0.107
+    netdata:
+      image: 'europe-west1-docker.pkg.dev/macro-kiln-247514/images/netdata:1.0.0'
+      container_name: netdata
+      hostname: netdata
+      restart: unless-stopped
+      cap_add:
+      - SYS_PTRACE
+      security_opt:
+      - apparmor:unconfined
+      volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${NANOLOCK_HOME}/netdata/logs:/var/log/netdata:z
+      - ${NANOLOCK_HOME}/netdata/netdata.conf:/etc/netdata/netdata.conf:z
+      - ${NANOLOCK_HOME}/netdata/plugins/python/:/etc/netdata/python.d:z
+      environment:
+      - PGID=999
+      networks:
+        nanolock:
+          ipv4_address: 172.18.0.108
+    grafana:
+        image: grafana/grafana:latest
+        container_name: grafana
+        restart: always
+        volumes:
+          - /etc/localtime:/etc/localtime:ro
+          - /etc/timezone:/etc/timezone:ro
+          - ${NANOLOCK_HOME}/grafana/grafana.ini:/etc/grafana/grafana.ini
+          - ${NANOLOCK_HOME}/grafana/provisioning:/etc/grafana/provisioning
+          - ${NANOLOCK_HOME}/grafana/data:/var/lib/grafana
+        depends_on:
+          - prometheus
+        ports:
+          - '3000:3000'
+        networks:
+            nanolock:
+                ipv4_address: 172.18.0.131
+    prometheus:
+        image: prom/prometheus:latest
+        container_name: prometheus
+        ports:
+          - '9090:9090'
+        restart: always
+        command:
+          - --config.file=/etc/prometheus/prometheus.yml
+          - --storage.tsdb.path=/prometheus
+        volumes:
+          - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+          - /etc/localtime:/etc/localtime:ro
+          - /etc/timezone:/etc/timezone:ro
+          - ${NANOLOCK_HOME}/prometheus/data:/prometheus
+        depends_on:
+          - cadvisor
+          - node-exporter
+          - postgres-exporter
+        networks:
+            nanolock:
+                ipv4_address: 172.18.0.132
+    cadvisor:
+        image: gcr.io/cadvisor/cadvisor:latest
+        container_name: cadvisor
+        restart: always
+        command:
+          - "--storage_duration=2m0s"
+          - "--housekeeping_interval=10s"
+          - "--docker_only=true"
+          - "--disable_metrics=percpu,sched,tcp,udp,disk,diskIO,accelerator,hugetlb,referenced_memory,cpu_topology,resctrl,advtcp,memory_numa,process"
+        ports:
+          - '8080:8080'
+        volumes:
+          - /etc/localtime:/etc/localtime:ro
+          - /etc/timezone:/etc/timezone:ro
+          - /:/rootfs:ro
+          - /var/run:/var/run:rw
+          - /sys:/sys:ro
+          - /var/lib/docker/:/var/lib/docker:ro
+          - /etc/machine-id:/etc/machine-id:ro
+          - /var/lib/dbus/machine-id:/var/lib/dbus/machine-id:ro
+        devices:
+          - /dev/kmsg:/dev/kmsg
+        networks:
+            nanolock:
+                ipv4_address: 172.18.0.133
+    node-exporter:
+        image: prom/node-exporter
+        container_name: node-exporter
+        volumes:
+          - /proc:/host/proc:ro
+          - /sys:/host/sys:ro
+        command:
+          - --path.procfs=/host/proc
+          - --path.sysfs=/host/sys
+          - --collector.filesystem.ignored-mount-points
+          - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+        ports:
+          - '9100:9100'
+        restart: always 
+        networks:
+            nanolock:
+                ipv4_address: 172.18.0.134           
+    postgres-exporter:
+        restart: unless-stopped
+        image: prometheuscommunity/postgres-exporter
+        container_name: postgres-exporter
+        volumes:
+          - '${NANOLOCK_HOME}/deployment-scripts/queries.yml:/etc/postgres_exporter/queries.yaml'
+        # configs:
+          # - source: postgres_exporter_config
+            # target: /etc/postgres_exporter/queries.yaml
+        ports:
+          - '9187:9187'
+        env_file:
+            - ${NANOLOCK_HOME}/grafana/.grafana.env
+        environment:
+          PG_EXPORTER_EXTEND_QUERY_PATH: /etc/postgres_exporter/queries.yaml
+        networks:
+            nanolock:
+                ipv4_address: 172.18.0.135  
+    pushgateway:
+      image: prom/pushgateway
+      container_name: pushgateway
+      restart: unless-stopped
+#      command:
+#        - --persistence.file="/tmp/metric.store
+      expose:
+        - 9091
+      ports:
+        - "9091:9091"
+      networks:
+        nanolock:
+          ipv4_address: 172.18.0.136
+networks:
+  default:
+      name: nanolock
+  nanolock:
+    name: nanolock
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet:  172.18.0.0/16

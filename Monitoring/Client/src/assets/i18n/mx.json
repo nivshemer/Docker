@@ -1,0 +1,62 @@
+{
+    "Actions": {
+        "Cancel": "Cancelar",
+        "Delete": "Borrar",
+        "Edit": "Editar",
+        "Export": "Exportar",
+        "ExportAs": "Exportar como {{format}}",
+        "ExportAsCSVorPDF": "Exportar como CSV o PDF"
+    },
+    "Auth": {
+        "ForgotPassword": {
+            "LogIn": "Iniciar sesión",
+            "PleaseContactYourSiteAdministrator": "Póngase en contacto con el administrador de su sitio",
+            "ReturnTo": "Volver a la página de",
+            "Title": "Olvidaste tu contraseña"
+        },
+        "Login": {
+            "ForgotPassword": "Olvidaste tu contraseña",
+            "LogIn": "Iniciar sesión",
+            "Title": "Inicio de sesión",
+            "Welcome": ""
+        }
+    },
+    "Common": {
+        "Error": "Error",
+        "NanoLockOtDefenderIsActivated": "NanoLock OT Defender activado",
+        "PoweredBy": "Tecnología de",
+        "MaxLengthOfUsername": "La longitud máxima del nombre de usuario es {{count}}",
+        "PasswordIsRequired": "Se requiere la contraseña",
+        "UsernameIsRequired": "Se requiere el nombre de usuario"
+    },
+    "Export": {
+        "ChooseFormat": "Elija el formato deseado",
+        "ExportServices": "Exportar"
+    },
+    "Nav": {
+        "Services": "Servicios"
+    },
+    "Roles": {
+        "Admin": "Administrador",
+        "Admins": "Administradores",
+        "Programmer": "Programador",
+        "Programmers": "Programadores",
+        "Supervisor": "Supervisor",
+        "Supervisors": "Supervisores"
+    },
+    "Services": {
+        "Name": "Nombre",
+        "Status": "Estado",
+        "Title": "Servicios",
+        "Version": "Versión"
+    },
+    "Toaster": {
+        "ExportError": "Error de exportación",
+        "NoDataForExport": "No hay datos para exportar"
+    },
+    "Toolbar": {
+        "Profile": "Perfil",
+        "SignOut": "Desconectar",
+        "SignedInAs": "Conectado como"
+    }
+}

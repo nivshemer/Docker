@@ -1,0 +1,6 @@
+{
+  "script": {
+    "lang": "painless",
+    "code": "if(params._source.StateMachine?.length == 0) return true; for(item in params._source.StateMachine) if(item.CommandId== 100) return true; return false;"
+  }
+}

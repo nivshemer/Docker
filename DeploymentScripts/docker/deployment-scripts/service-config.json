@@ -1,0 +1,26 @@
+{
+	"FirmwareUrl": "https://envvar-ota.nanolocksecurity.nl",
+	"WebLocation": "http://assets:8071/",
+	"AuthorityUrl": "https://envvar-auth.nanolocksecurity.nl/auth/realms/nanolocksec/",
+	"WebClient": {
+		"CustomerId": "nanolock",
+		"Title": "nanolōck  - Edge Protection"
+	},
+	"Redis": {
+		"Url": "redis",
+		"Password": "nanolocksec",
+		"Database": 0
+	},
+	"MemoryCache": {
+		"AbsoluteExpiration": "00:30:00"
+	},
+	"DistributedCache": {
+		"AbsoluteExpiration": "01:00:00"
+	},
+	"MQ": {
+		"Url": "rabbit-mq",
+		"Password": "nanolocksec",
+		"UserName": "nanolocksec",
+		"VirtualHost": "/"
+	}
+}

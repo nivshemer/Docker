@@ -1,0 +1,30 @@
+version: '3.5'
+services:
+    vault:
+        restart: unless-stopped
+        container_name: vault
+        hostname: vault
+        image: vault:1.12.7
+        ports:
+          - "8210:8200"
+          - "8211:8201"
+        command: server -dev
+        environment:
+          VAULT_DEV_ROOT_TOKEN_ID: nanolock-s3cr3t
+          VAULT_ADDR: http://127.0.0.0:8200
+          VAULT_TOKEN: nanolock-s3cr3t
+        volumes:
+          - /nanolock/vault:/vault
+        networks:
+            nanolock:
+                ipv4_address: 172.18.0.198  
+networks:
+  default:
+      name: nanolock
+  nanolock:
+    name: nanolock
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet:  172.18.0.0/16
