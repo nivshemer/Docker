@@ -13,7 +13,7 @@ namespace ServiceMonitor
     {
         private CancellationTokenSource _cancellationTokenSource;
         private readonly TimeZoneInfo _timeZoneInfo;
-        public IEnumerable<NanoLockProcess> Processes { get; private set; }
+        public IEnumerable<NivshemerProcess> Processes { get; private set; }
         public bool HasStarted { get; private set; }
 
         private DateTimeOffset _lastCheck;
@@ -22,7 +22,7 @@ namespace ServiceMonitor
         private bool _alwaysOnTop;
         public bool AlwaysOnTop { get => _alwaysOnTop; set => this.Set(nameof(AlwaysOnTop), ref _alwaysOnTop, value); }
 
-        public ProcessMonitor(IEnumerable<NanoLockProcess> processes)
+        public ProcessMonitor(IEnumerable<NivshemerProcess> processes)
         {
             this.Processes = processes;
             _timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(Settings.Default.TimeZone);

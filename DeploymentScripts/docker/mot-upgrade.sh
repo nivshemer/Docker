@@ -10,7 +10,7 @@ fi
 rm -f /tmp/*.zip
 
 # Paths
-ENV_FILE="$NANOLOCK_HOME/deployment-scripts/.env"
+ENV_FILE="$Nivshemer_HOME/deployment-scripts/.env"
 DEST_DIR="/tmp"
 
 # Create /tmp directory if it doesn't exist
@@ -42,7 +42,7 @@ for zip in "${zip_files[@]}"; do
     echo "Moved: $zip -> $DEST_DIR"
 done
 
-# Unzip nanolock services if present
+# Unzip Nivshemer services if present
 zip_file=($(find "$DEST_DIR" -maxdepth 1 -name "*.zip"))
 if [ -f "$zip_file" ]; then
     echo "***** Extracting $zip_file *****"
@@ -67,18 +67,18 @@ BUILD_NUMBER=$(head -n 1 "$ENV_FILE" | cut -d'=' -f2 | tr -d '[:space:]')
 if [[ -n "$BUILD_NUMBER" && "$BUILD_NUMBER" =~ ^[0-9]+$ ]]; then
     if [[ "$BUILD_NUMBER" -le 810 ]]; then
         echo "The build is 810 and below"
-        openssl aes-256-cbc -d -a -pbkdf2 -in "$NANOLOCK_HOME/stores/.sec_enc.env" -out "$NANOLOCK_HOME/deployment-scripts/.secrets.env" -pass pass:NanoLockSec!
-        pwd_value=$(grep -oP 'Pwd=\K[^;]+' <(head -n 1 "$NANOLOCK_HOME/deployment-scripts/.secrets.env"))
-        first_line=$(head -n 1 "$NANOLOCK_HOME/deployment-scripts/.secrets.env")
+        openssl aes-256-cbc -d -a -pbkdf2 -in "$Nivshemer_HOME/stores/.sec_enc.env" -out "$Nivshemer_HOME/deployment-scripts/.secrets.env" -pass pass:NivshemerSec!
+        pwd_value=$(grep -oP 'Pwd=\K[^;]+' <(head -n 1 "$Nivshemer_HOME/deployment-scripts/.secrets.env"))
+        first_line=$(head -n 1 "$Nivshemer_HOME/deployment-scripts/.secrets.env")
         pwd_admin_value=$(echo "$first_line" | grep -oP 'Pwd=\K[^;]+')        
-        cp -vf /tmp/deployment-scripts/.secrets.env $NANOLOCK_HOME/deployment-scripts
-        sed -i -e s/POSTGRES_PW/"$pwd_value"/g "$NANOLOCK_HOME/deployment-scripts/.secrets.env" || exit 1
-        sed -i -e s/ADMIN_PW/"$pwd_admin_value"/g "$NANOLOCK_HOME/deployment-scripts/.secrets.env" || exit 1
-        openssl aes-256-cbc -a -salt -pbkdf2 -in /nanolock/deployment-scripts/.secrets.env -out /nanolock/stores/.sec_enc.env -pass pass:$nanop
-        echo 'nanop=NanoLockSec!' >> /etc/environment 
+        cp -vf /tmp/deployment-scripts/.secrets.env $Nivshemer_HOME/deployment-scripts
+        sed -i -e s/POSTGRES_PW/"$pwd_value"/g "$Nivshemer_HOME/deployment-scripts/.secrets.env" || exit 1
+        sed -i -e s/ADMIN_PW/"$pwd_admin_value"/g "$Nivshemer_HOME/deployment-scripts/.secrets.env" || exit 1
+        openssl aes-256-cbc -a -salt -pbkdf2 -in /Nivshemer/deployment-scripts/.secrets.env -out /Nivshemer/stores/.sec_enc.env -pass pass:$nanop
+        echo 'nanop=NivshemerSec!' >> /etc/environment 
     else
         echo "The build is Above 810"
-        openssl aes-256-cbc -d -a -pbkdf2 -in "$NANOLOCK_HOME/stores/.sec_enc.env" -out "$NANOLOCK_HOME/deployment-scripts/.secrets.env" -pass pass:NanoLockSec!
+        openssl aes-256-cbc -d -a -pbkdf2 -in "$Nivshemer_HOME/stores/.sec_enc.env" -out "$Nivshemer_HOME/deployment-scripts/.secrets.env" -pass pass:NivshemerSec!
     fi
 else
     echo "BUILD_NUMBER is not valid: $BUILD_NUMBER"
@@ -86,23 +86,23 @@ fi
 
 
 # Extract the value of API_URL from the .env file
-API_URL=$(grep ^API_URL= $NANOLOCK_HOME/deployment-scripts/.env | cut -d '=' -f2-)
+API_URL=$(grep ^API_URL= $Nivshemer_HOME/deployment-scripts/.env | cut -d '=' -f2-)
 echo "***** Backup configuration files *****"
-cp -vf $NANOLOCK_HOME/deployment-scripts/.env $NANOLOCK_HOME/deployment-scripts/.env_backup
-cp -vf /tmp/deployment-scripts/.env $NANOLOCK_HOME/deployment-scripts/
+cp -vf $Nivshemer_HOME/deployment-scripts/.env $Nivshemer_HOME/deployment-scripts/.env_backup
+cp -vf /tmp/deployment-scripts/.env $Nivshemer_HOME/deployment-scripts/
 
 # Insert or replace the API_URL value in the .env_new file
-if grep -q ^API_URL= $NANOLOCK_HOME/deployment-scripts/.env; then
+if grep -q ^API_URL= $Nivshemer_HOME/deployment-scripts/.env; then
     # If API_URL exists, replace it
-    sed -i "s|^API_URL=.*|API_URL=${API_URL}|" $NANOLOCK_HOME/deployment-scripts/.env
+    sed -i "s|^API_URL=.*|API_URL=${API_URL}|" $Nivshemer_HOME/deployment-scripts/.env
 else
     # If API_URL does not exist, add it
-    echo "API_URL=${API_URL}" >> $NANOLOCK_HOME/deployment-scripts/.env
+    echo "API_URL=${API_URL}" >> $Nivshemer_HOME/deployment-scripts/.env
 fi
 
-sed -i 's|gcr.io/macro-kiln-247514|europe-west1-docker.pkg.dev/macro-kiln-247514/images|g' $NANOLOCK_HOME/deployment-scripts/docker-compose.yml
+sed -i 's|gcr.io/macro-kiln-247514|europe-west1-docker.pkg.dev/macro-kiln-247514/images|g' $Nivshemer_HOME/deployment-scripts/docker-compose.yml
 
-OTD_FILE="$NANOLOCK_HOME/service-configurations/otd.json"
+OTD_FILE="$Nivshemer_HOME/service-configurations/otd.json"
 
 # Check if "FeatureManagement" already exists
 if ! grep -q '"FeatureManagement"' "$OTD_FILE"; then
@@ -115,12 +115,12 @@ else
 fi
 
 
-cd $NANOLOCK_HOME/deployment-scripts
+cd $Nivshemer_HOME/deployment-scripts
 docker-compose up -d || { echo "docker-compose up failed"; exit 1; }
-nanolock-watch
+Nivshemer-watch
 
 # Clean secrets
-rm -rf "$NANOLOCK_HOME/deployment-scripts/.secrets.env"
+rm -rf "$Nivshemer_HOME/deployment-scripts/.secrets.env"
 
 # Clean /tmp directory
 echo "Cleaning /tmp directory"

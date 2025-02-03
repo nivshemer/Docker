@@ -1,5 +1,5 @@
 #!/bin/bash
-log_path="/nanolock/log.log"
+log_path="/Nivshemer/log.log"
 # Create the directory if it does not exist
 mkdir -p "$(dirname "$log_path")"
 
@@ -14,23 +14,23 @@ apt install -y \
 	ca-certificates \
 	curl \
 	software-properties-common 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -  > /nanolock/log 2>&1 || { exit 1; }
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -  > /Nivshemer/log 2>&1 || { exit 1; }
 add-apt-repository \
 	"deb [arch=amd64] https://download.docker.com/linux/ubuntu \
 	$(lsb_release -cs) \
 	stable"  
 
-apt update  #> /nanolock/log 2>&1 || { exit 1; }
-apt install -y docker-ce  #> /nanolock/log 2>&1 || { exit 1; }
-sudo apt-get install docker.io  #> /nanolock/log 2>&1 || { exit 1; }
-systemctl status docker.io #> /nanolock/log 2>&1 || { exit 1; }
-sudo systemctl daemon-reload #> /nanolock/log 2>&1 || { exit 1; }
-sudo systemctl enable docker #> /nanolock/log 2>&1 || { exit 1; }
-sudo systemctl start docker #> /nanolock/log 2>&1 || { exit 1; }
-sudo apt-get update #> /nanolock/log 2>&1 || { exit 1; }
-sudo apt-get install docker-ce docker-ce-cli containerd.io #> /nanolock/log 2>&1 || { exit 1; }
+apt update  #> /Nivshemer/log 2>&1 || { exit 1; }
+apt install -y docker-ce  #> /Nivshemer/log 2>&1 || { exit 1; }
+sudo apt-get install docker.io  #> /Nivshemer/log 2>&1 || { exit 1; }
+systemctl status docker.io #> /Nivshemer/log 2>&1 || { exit 1; }
+sudo systemctl daemon-reload #> /Nivshemer/log 2>&1 || { exit 1; }
+sudo systemctl enable docker #> /Nivshemer/log 2>&1 || { exit 1; }
+sudo systemctl start docker #> /Nivshemer/log 2>&1 || { exit 1; }
+sudo apt-get update #> /Nivshemer/log 2>&1 || { exit 1; }
+sudo apt-get install docker-ce docker-ce-cli containerd.io #> /Nivshemer/log 2>&1 || { exit 1; }
 
-#systemctl status docker #> /nanolock/log 2>&1 || { exit 1; }
+#systemctl status docker #> /Nivshemer/log 2>&1 || { exit 1; }
 
 sudo curl -L "https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose 

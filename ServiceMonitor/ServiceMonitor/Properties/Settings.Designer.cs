@@ -43,44 +43,44 @@ namespace ServiceMonitor.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\r\n          [\r\n          {\r\n          \"ProcessName\": \"NanoLockSec.Services.Storag" +
-            "e\",\r\n          \"CommandLine\": \"cd c:\\\\NanoLock\\\\DataStoreService\\r\\nstart /min \\" +
-            "\"DataStore Service\\\" dotnet NanoLockSec.Services.Storage.dll\",\r\n          \"Displ" +
+        [global::System.Configuration.DefaultSettingValueAttribute("\r\n          [\r\n          {\r\n          \"ProcessName\": \"NivshemerSec.Services.Storag" +
+            "e\",\r\n          \"CommandLine\": \"cd c:\\\\Nivshemer\\\\DataStoreService\\r\\nstart /min \\" +
+            "\"DataStore Service\\\" dotnet NivshemerSec.Services.Storage.dll\",\r\n          \"Displ" +
             "ayName\": \"DataStore Service\"\r\n          },\r\n           {\r\n          \"ProcessName" +
-            "\": \"NanoLockSec.Services.DeviceKeyStore\",\r\n          \"CommandLine\": \"cd c:\\\\Nano" +
-            "Lock\\\\DeviceKeyStore\\r\\nstart /min \\\"Device Key Store\\\" dotnet NanoLockSec.Servi" +
+            "\": \"NivshemerSec.Services.DeviceKeyStore\",\r\n          \"CommandLine\": \"cd c:\\\\Nano" +
+            "Lock\\\\DeviceKeyStore\\r\\nstart /min \\\"Device Key Store\\\" dotnet NivshemerSec.Servi" +
             "ces.DeviceKeyStore.dll\",\r\n          \"DisplayName\": \"Device Key Store\"\r\n         " +
-            " },\r\n          {\r\n          \"ProcessName\": \"NanoLockSec.Services.DeviceAuthentic" +
-            "ation\",\r\n          \"CommandLine\": \"cd c:\\\\NanoLock\\\\DeviceAuthentication\\r\\nstar" +
-            "t /min \\\"Device Authentication\\\" dotnet NanoLockSec.Services.DeviceAuthenticatio" +
+            " },\r\n          {\r\n          \"ProcessName\": \"NivshemerSec.Services.DeviceAuthentic" +
+            "ation\",\r\n          \"CommandLine\": \"cd c:\\\\Nivshemer\\\\DeviceAuthentication\\r\\nstar" +
+            "t /min \\\"Device Authentication\\\" dotnet NivshemerSec.Services.DeviceAuthenticatio" +
             "n.dll\",\r\n          \"DisplayName\": \"Device Authentication\"\r\n          },\r\n       " +
-            "   {\r\n          \"ProcessName\": \"NanoLockSec.Services.Devices\",\r\n          \"Comma" +
-            "ndLine\": \"cd c:\\\\NanoLock\\\\DeviceServices\\r\\nstart /min \\\"Device Service\\\" dotne" +
-            "t NanoLockSec.Services.Devices.dll\",\r\n          \"DisplayName\": \"Device Service\"\r" +
-            "\n          },\r\n          {\r\n          \"ProcessName\": \"NanoLockSec.Services.OverT" +
-            "heAir\",\r\n          \"CommandLine\": \"cd c:\\\\NanoLock\\\\OTAServer\\r\\nstart /min \\\"OT" +
-            "A Service\\\" dotnet NanoLockSec.Services.OverTheAir.dll\",\r\n          \"DisplayName" +
-            "\": \"OTA Service\"\r\n          },\r\n          {\r\n          \"ProcessName\": \"NanoLockS" +
-            "ec.Services.Management.Api\",\r\n          \"CommandLine\": \"cd c:\\\\NanoLock\\\\Managem" +
-            "entAPI\\r\\nstart /min \\\"Management API\\\" dotnet NanoLockSec.Services.Management.A" +
+            "   {\r\n          \"ProcessName\": \"NivshemerSec.Services.Devices\",\r\n          \"Comma" +
+            "ndLine\": \"cd c:\\\\Nivshemer\\\\DeviceServices\\r\\nstart /min \\\"Device Service\\\" dotne" +
+            "t NivshemerSec.Services.Devices.dll\",\r\n          \"DisplayName\": \"Device Service\"\r" +
+            "\n          },\r\n          {\r\n          \"ProcessName\": \"NivshemerSec.Services.OverT" +
+            "heAir\",\r\n          \"CommandLine\": \"cd c:\\\\Nivshemer\\\\OTAServer\\r\\nstart /min \\\"OT" +
+            "A Service\\\" dotnet NivshemerSec.Services.OverTheAir.dll\",\r\n          \"DisplayName" +
+            "\": \"OTA Service\"\r\n          },\r\n          {\r\n          \"ProcessName\": \"NivshemerS" +
+            "ec.Services.Management.Api\",\r\n          \"CommandLine\": \"cd c:\\\\Nivshemer\\\\Managem" +
+            "entAPI\\r\\nstart /min \\\"Management API\\\" dotnet NivshemerSec.Services.Management.A" +
             "pi.dll\",\r\n          \"DisplayName\": \"Management API\"\r\n          },\r\n          {\r\n" +
-            "          \"ProcessName\": \"NanoLockSec.Services.Data.DataReadyProcessor\",\r\n      " +
-            "    \"CommandLine\": \"cd c:\\\\NanoLock\\\\DataReadyProcessor\\r\\nstart /min \\\"Data Rea" +
-            "dy Processor\\\" dotnet NanoLockSec.Services.Data.DataReadyProcessor.dll\",\r\n      " +
+            "          \"ProcessName\": \"NivshemerSec.Services.Data.DataReadyProcessor\",\r\n      " +
+            "    \"CommandLine\": \"cd c:\\\\Nivshemer\\\\DataReadyProcessor\\r\\nstart /min \\\"Data Rea" +
+            "dy Processor\\\" dotnet NivshemerSec.Services.Data.DataReadyProcessor.dll\",\r\n      " +
             "    \"DisplayName\": \"Data Ready Processor\"\r\n          },\r\n          {\r\n          " +
-            "\"ProcessName\": \"NanoLockSec.Services.Alerts\",\r\n          \"CommandLine\": \"cd c:\\\\" +
-            "NanoLock\\\\AlertsManagement\\r\\nstart /min \\\"Alerts Management\\\" dotnet NanoLockSe" +
+            "\"ProcessName\": \"NivshemerSec.Services.Alerts\",\r\n          \"CommandLine\": \"cd c:\\\\" +
+            "Nivshemer\\\\AlertsManagement\\r\\nstart /min \\\"Alerts Management\\\" dotnet NivshemerSe" +
             "c.Services.Alerts.dll\",\r\n          \"DisplayName\": \"Alerts Management\"\r\n         " +
-            " },\r\n          {\r\n          \"ProcessName\": \"NanoLockSec.Services.Extensibility\"," +
-            "\r\n          \"CommandLine\": \"cd c:\\\\NanoLock\\\\ExtensibilityService\\r\\nstart /min " +
-            "\\\"Extensibility Service\\\" dotnet NanoLockSec.Services.Extensibility.dll\",\r\n     " +
+            " },\r\n          {\r\n          \"ProcessName\": \"NivshemerSec.Services.Extensibility\"," +
+            "\r\n          \"CommandLine\": \"cd c:\\\\Nivshemer\\\\ExtensibilityService\\r\\nstart /min " +
+            "\\\"Extensibility Service\\\" dotnet NivshemerSec.Services.Extensibility.dll\",\r\n     " +
             "     \"DisplayName\": \"Extensibility Service\"\r\n          },\r\n          {\r\n        " +
-            "  \"ProcessName\": \"NanoLockSec.Services.Configuration\",\r\n          \"CommandLine\":" +
-            " \"cd c:\\\\NanoLock\\\\ConfigurationService\\r\\nstart /min \\\"Configuration Service\\\" " +
-            "dotnet NanoLockSec.Services.Configuration.dll\",\r\n          \"DisplayName\": \"Confi" +
-            "guration Service\"\r\n          },\r\n          {\r\n          \"ProcessName\": \"NanoLock" +
-            "Sec.Services.Identity\",\r\n          \"CommandLine\": \"cd c:\\\\NanoLock\\\\IdentityServ" +
-            "ice\\r\\nstart /min \\\"Identity Service\\\" dotnet NanoLockSec.Services.Identity.dll\"" +
+            "  \"ProcessName\": \"NivshemerSec.Services.Configuration\",\r\n          \"CommandLine\":" +
+            " \"cd c:\\\\Nivshemer\\\\ConfigurationService\\r\\nstart /min \\\"Configuration Service\\\" " +
+            "dotnet NivshemerSec.Services.Configuration.dll\",\r\n          \"DisplayName\": \"Confi" +
+            "guration Service\"\r\n          },\r\n          {\r\n          \"ProcessName\": \"Nivshemer" +
+            "Sec.Services.Identity\",\r\n          \"CommandLine\": \"cd c:\\\\Nivshemer\\\\IdentityServ" +
+            "ice\\r\\nstart /min \\\"Identity Service\\\" dotnet NivshemerSec.Services.Identity.dll\"" +
             ",\r\n          \"DisplayName\": \"Identity Service\"\r\n          }\r\n          ]\r\n      " +
             "  ")]
         public string Processes {

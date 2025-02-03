@@ -4,7 +4,7 @@ if [ -d /etc/nginx/templates/ ]; then
 	if [ "$VARIABLES_TO_EXPAND" != "" ]; then
 		variables_to_expand=$VARIABLES_TO_EXPAND		
 	else
-		variables_to_expand='${AUTH_SERVER} ${AUTH_SERVER_API} ${AUTH_SERVER_ADMIN} ${NANOLOCK_API} ${NANOLOCK_CONFIG} ${NANOLOCK_CLIENTMONITORING} ${NANOLOCK_MNGTCLIENT} ${NANOLOCK_SERVERMONITORING}'
+		variables_to_expand='${AUTH_SERVER} ${AUTH_SERVER_API} ${AUTH_SERVER_ADMIN} ${Nivshemer_API} ${Nivshemer_CONFIG} ${Nivshemer_CLIENTMONITORING} ${Nivshemer_MNGTCLIENT} ${Nivshemer_SERVERMONITORING}'
 	fi
 	envsubst "$variables_to_expand" < /etc/nginx/templates/nginx.conf > /etc/nginx/nginx.conf
 

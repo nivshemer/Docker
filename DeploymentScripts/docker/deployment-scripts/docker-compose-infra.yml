@@ -11,12 +11,12 @@ services:
         ulimits:
             memlock: {soft: -1, hard: -1}
         volumes:
-            - '${NANOLOCK_HOME}/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:z'
-            - '${NANOLOCK_HOME}/elasticsearch/jvm.options:/usr/share/elasticsearch/config/jvm.options:z'
-            - '${NANOLOCK_HOME}/elasticsearch/data:/usr/share/elasticsearch/data:z'
-            - '${NANOLOCK_HOME}/elasticsearch/logs:/usr/share/elasticsearch/logs:z'
+            - '${Nivshemer_HOME}/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:z'
+            - '${Nivshemer_HOME}/elasticsearch/jvm.options:/usr/share/elasticsearch/config/jvm.options:z'
+            - '${Nivshemer_HOME}/elasticsearch/data:/usr/share/elasticsearch/data:z'
+            - '${Nivshemer_HOME}/elasticsearch/logs:/usr/share/elasticsearch/logs:z'
         networks:
-          nanolock:
+          Nivshemer:
             ipv4_address: 172.18.0.100
     kibana:
         restart: unless-stopped
@@ -24,10 +24,10 @@ services:
         hostname: kibana
         image: 'docker.elastic.co/kibana/kibana:8.7.0'
         volumes:
-            - ${NANOLOCK_HOME}/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:z
-            - ${NANOLOCK_HOME}/kibana/healthcheck.sh:/healthcheck.sh:ro
+            - ${Nivshemer_HOME}/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:z
+            - ${Nivshemer_HOME}/kibana/healthcheck.sh:/healthcheck.sh:ro
         networks:
-          nanolock:
+          Nivshemer:
             ipv4_address: 172.18.0.101
     filebeat:
       image: docker.elastic.co/beats/filebeat:8.7.0
@@ -39,11 +39,11 @@ services:
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock:ro
         - /var/lib/docker/containers/:/var/lib/docker/containers/:ro
-        - ${NANOLOCK_HOME}/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:Z        
-        - ${NANOLOCK_HOME}/rabbit-mq/logs:/var/log/rabbitmq:ro
+        - ${Nivshemer_HOME}/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:Z        
+        - ${Nivshemer_HOME}/rabbit-mq/logs:/var/log/rabbitmq:ro
       command: --strict.perms=false -e
       networks:
-        nanolock:
+        Nivshemer:
           ipv4_address: 172.18.0.102    
     postgres:
         restart: unless-stopped
@@ -53,25 +53,25 @@ services:
         ports:
             - '5432:5432'
         env_file:
-            - ${NANOLOCK_HOME}/postgres/.postgres.env
+            - ${Nivshemer_HOME}/postgres/.postgres.env
         environment:
             REPLICATION_MODE: master
             REPLICATION_SSLMODE:
             POSTGRES_INITDB_ARGS: '--lc-collate=default --locale=default --lc-ctype=default'
         healthcheck:
-            test: [CMD-SHELL, '/etc/postgresql/db_backup.sh && pg_isready -U nanolocksec']
+            test: [CMD-SHELL, '/etc/postgresql/db_backup.sh && pg_isready -U Nivshemersec']
             interval: 60m
             timeout: 60s  
         volumes:
-            - '${NANOLOCK_HOME}/postgres/postgres.conf:/etc/postgresql/postgresql.conf:z'
-            - '${NANOLOCK_HOME}/postgres/pg_hba.conf:/etc/postgresql/pg_hba.conf:z'
-            - '${NANOLOCK_HOME}/postgres/data:/var/lib/postgresql/data:z'
-            - '${NANOLOCK_HOME}/postgres/archivedir:/var/lib/postgresql/12/main/archivedir:z'
-            - '${NANOLOCK_HOME}/postgres/db_backup.sh:/etc/postgresql/db_backup.sh:z'
+            - '${Nivshemer_HOME}/postgres/postgres.conf:/etc/postgresql/postgresql.conf:z'
+            - '${Nivshemer_HOME}/postgres/pg_hba.conf:/etc/postgresql/pg_hba.conf:z'
+            - '${Nivshemer_HOME}/postgres/data:/var/lib/postgresql/data:z'
+            - '${Nivshemer_HOME}/postgres/archivedir:/var/lib/postgresql/12/main/archivedir:z'
+            - '${Nivshemer_HOME}/postgres/db_backup.sh:/etc/postgresql/db_backup.sh:z'
 
         command: postgres -c 'config_file=/etc/postgresql/postgresql.conf' -c 'hba_file=/etc/postgresql/pg_hba.conf'
         networks:
-          nanolock:
+          Nivshemer:
             ipv4_address: 172.18.0.103
     nginx:
         restart: unless-stopped
@@ -91,24 +91,24 @@ services:
             - '5000:5000'
             - '5001:5001'
         env_file:
-        - '${NANOLOCK_HOME}/deployment-scripts/domain-names.env'
+        - '${Nivshemer_HOME}/deployment-scripts/domain-names.env'
         volumes:
-            - '${NANOLOCK_HOME}/demo:/demo:Z'
-            - '${NANOLOCK_HOME}/nginx/nginx.conf:/etc/nginx/templates/nginx.conf:Z'
-            - '${NANOLOCK_HOME}/nginx/cert.crt:/etc/nginx/cert.crt:Z'
-            - '${NANOLOCK_HOME}/nginx/cert.key:/etc/nginx/cert.key:Z'
-            - '${NANOLOCK_HOME}/nginx/logs:/var/log/nginx:Z'
-            - '${NANOLOCK_HOME}/nginx/conf.d:/etc/nginx/templates/conf.d:Z'
+            - '${Nivshemer_HOME}/demo:/demo:Z'
+            - '${Nivshemer_HOME}/nginx/nginx.conf:/etc/nginx/templates/nginx.conf:Z'
+            - '${Nivshemer_HOME}/nginx/cert.crt:/etc/nginx/cert.crt:Z'
+            - '${Nivshemer_HOME}/nginx/cert.key:/etc/nginx/cert.key:Z'
+            - '${Nivshemer_HOME}/nginx/logs:/var/log/nginx:Z'
+            - '${Nivshemer_HOME}/nginx/conf.d:/etc/nginx/templates/conf.d:Z'
         networks:
-          nanolock:
+          Nivshemer:
             ipv4_address: 172.18.0.104
     redis:
         container_name: redis
         hostname: redis
         image: 'redis:5.0.6-alpine'
         volumes:
-            - '/${NANOLOCK_HOME}/redis/data:/data:z'
-            - '/${NANOLOCK_HOME}/redis/redis.conf:/etc/redis/redis.conf:Z'
+            - '/${Nivshemer_HOME}/redis/data:/data:z'
+            - '/${Nivshemer_HOME}/redis/redis.conf:/etc/redis/redis.conf:Z'
         restart: unless-stopped
         ports:
             - '6379:6379'
@@ -120,7 +120,7 @@ services:
             net.core.somaxconn: 511
         command: 'redis-server /etc/redis/redis.conf'
         networks:
-          nanolock:
+          Nivshemer:
             ipv4_address: 172.18.0.105
     redis-commander:
         container_name: redis-commander
@@ -128,13 +128,13 @@ services:
         image: 'rediscommander/redis-commander:latest'
         restart: unless-stopped
         environment:
-            - 'REDIS_HOSTS=db00:redis:6379:0:nanolocksec'
+            - 'REDIS_HOSTS=db00:redis:6379:0:Nivshemersec'
         healthcheck:
             test: [CMD-SHELL, 'netstat -ntpl | grep [0-9]:$${1:-8081} -q']
             interval: 10m
             timeout: 60s  
         networks:
-          nanolock:
+          Nivshemer:
             ipv4_address: 172.18.0.106
     rabbit-mq:
         container_name: rabbit-mq
@@ -145,9 +145,9 @@ services:
           RABBITMQ_LOG_BASE: "/var/log/rabbitmq"
           RABBITMQ_LOGS: "/var/log/rabbitmq/rabbitmq.log"
         volumes:
-            - '${NANOLOCK_HOME}/rabbit-mq/data:/var/lib/rabbitmq'
-            - '${NANOLOCK_HOME}/rabbit-mq/logs:/var/log/rabbitmq'
-            - '${NANOLOCK_HOME}/rabbit-mq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:z'
+            - '${Nivshemer_HOME}/rabbit-mq/data:/var/lib/rabbitmq'
+            - '${Nivshemer_HOME}/rabbit-mq/logs:/var/log/rabbitmq'
+            - '${Nivshemer_HOME}/rabbit-mq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:z'
         ports:
             - '5672:5672'
             - '8883:8883'
@@ -158,7 +158,7 @@ services:
             interval: 10m
             timeout: 60s  
         networks:
-          nanolock:
+          Nivshemer:
             ipv4_address: 172.18.0.107
     netdata:
       image: 'europe-west1-docker.pkg.dev/macro-kiln-247514/images/netdata:1.0.0'
@@ -173,13 +173,13 @@ services:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${NANOLOCK_HOME}/netdata/logs:/var/log/netdata:z
-      - ${NANOLOCK_HOME}/netdata/netdata.conf:/etc/netdata/netdata.conf:z
-      - ${NANOLOCK_HOME}/netdata/plugins/python/:/etc/netdata/python.d:z
+      - ${Nivshemer_HOME}/netdata/logs:/var/log/netdata:z
+      - ${Nivshemer_HOME}/netdata/netdata.conf:/etc/netdata/netdata.conf:z
+      - ${Nivshemer_HOME}/netdata/plugins/python/:/etc/netdata/python.d:z
       environment:
       - PGID=999
       networks:
-        nanolock:
+        Nivshemer:
           ipv4_address: 172.18.0.108
     grafana:
         image: grafana/grafana:latest
@@ -188,15 +188,15 @@ services:
         volumes:
           - /etc/localtime:/etc/localtime:ro
           - /etc/timezone:/etc/timezone:ro
-          - ${NANOLOCK_HOME}/grafana/grafana.ini:/etc/grafana/grafana.ini
-          - ${NANOLOCK_HOME}/grafana/provisioning:/etc/grafana/provisioning
-          - ${NANOLOCK_HOME}/grafana/data:/var/lib/grafana
+          - ${Nivshemer_HOME}/grafana/grafana.ini:/etc/grafana/grafana.ini
+          - ${Nivshemer_HOME}/grafana/provisioning:/etc/grafana/provisioning
+          - ${Nivshemer_HOME}/grafana/data:/var/lib/grafana
         depends_on:
           - prometheus
         ports:
           - '3000:3000'
         networks:
-            nanolock:
+            Nivshemer:
                 ipv4_address: 172.18.0.131
     prometheus:
         image: prom/prometheus:latest
@@ -211,13 +211,13 @@ services:
           - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
           - /etc/localtime:/etc/localtime:ro
           - /etc/timezone:/etc/timezone:ro
-          - ${NANOLOCK_HOME}/prometheus/data:/prometheus
+          - ${Nivshemer_HOME}/prometheus/data:/prometheus
         depends_on:
           - cadvisor
           - node-exporter
           - postgres-exporter
         networks:
-            nanolock:
+            Nivshemer:
                 ipv4_address: 172.18.0.132
     cadvisor:
         image: gcr.io/cadvisor/cadvisor:latest
@@ -242,7 +242,7 @@ services:
         devices:
           - /dev/kmsg:/dev/kmsg
         networks:
-            nanolock:
+            Nivshemer:
                 ipv4_address: 172.18.0.133
     node-exporter:
         image: prom/node-exporter
@@ -259,25 +259,25 @@ services:
           - '9100:9100'
         restart: always 
         networks:
-            nanolock:
+            Nivshemer:
                 ipv4_address: 172.18.0.134           
     postgres-exporter:
         restart: unless-stopped
         image: prometheuscommunity/postgres-exporter
         container_name: postgres-exporter
         volumes:
-          - '${NANOLOCK_HOME}/deployment-scripts/queries.yml:/etc/postgres_exporter/queries.yaml'
+          - '${Nivshemer_HOME}/deployment-scripts/queries.yml:/etc/postgres_exporter/queries.yaml'
         # configs:
           # - source: postgres_exporter_config
             # target: /etc/postgres_exporter/queries.yaml
         ports:
           - '9187:9187'
         env_file:
-            - ${NANOLOCK_HOME}/grafana/.grafana.env
+            - ${Nivshemer_HOME}/grafana/.grafana.env
         environment:
           PG_EXPORTER_EXTEND_QUERY_PATH: /etc/postgres_exporter/queries.yaml
         networks:
-            nanolock:
+            Nivshemer:
                 ipv4_address: 172.18.0.135  
     pushgateway:
       image: prom/pushgateway
@@ -290,13 +290,13 @@ services:
       ports:
         - "9091:9091"
       networks:
-        nanolock:
+        Nivshemer:
           ipv4_address: 172.18.0.136
 networks:
   default:
-      name: nanolock
-  nanolock:
-    name: nanolock
+      name: Nivshemer
+  Nivshemer:
+    name: Nivshemer
     driver: bridge
     ipam:
       driver: default

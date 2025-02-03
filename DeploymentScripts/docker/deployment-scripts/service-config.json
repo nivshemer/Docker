@@ -1,14 +1,14 @@
 {
-	"FirmwareUrl": "https://envvar-ota.nanolocksecurity.nl",
+	"FirmwareUrl": "https://envvar-ota.Nivshemersecurity.nl",
 	"WebLocation": "http://assets:8071/",
-	"AuthorityUrl": "https://envvar-auth.nanolocksecurity.nl/auth/realms/nanolocksec/",
+	"AuthorityUrl": "https://envvar-auth.Nivshemersecurity.nl/auth/realms/Nivshemersec/",
 	"WebClient": {
-		"CustomerId": "nanolock",
+		"CustomerId": "Nivshemer",
 		"Title": "nanolōck  - Edge Protection"
 	},
 	"Redis": {
 		"Url": "redis",
-		"Password": "nanolocksec",
+		"Password": "Nivshemersec",
 		"Database": 0
 	},
 	"MemoryCache": {
@@ -19,8 +19,8 @@
 	},
 	"MQ": {
 		"Url": "rabbit-mq",
-		"Password": "nanolocksec",
-		"UserName": "nanolocksec",
+		"Password": "Nivshemersec",
+		"UserName": "Nivshemersec",
 		"VirtualHost": "/"
 	}
 }

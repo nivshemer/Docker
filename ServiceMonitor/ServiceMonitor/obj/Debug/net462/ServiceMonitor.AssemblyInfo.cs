@@ -10,10 +10,10 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("NanoLock Security")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Nivshemer Security")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright 2017 (c) NanoLock Security. All rights reserved.")]
-[assembly: System.Reflection.AssemblyDescriptionAttribute("NanoLock Service Monitor.")]
+[assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright 2017 (c) Nivshemer Security. All rights reserved.")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute("Nivshemer Service Monitor.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("ServiceMonitor")]

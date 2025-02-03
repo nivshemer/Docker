@@ -14,25 +14,25 @@ old_ip=$(eval hostname -I | cut -d' ' -f1)
 case "$1" in
   "MasterToSlave")
     echo "Running MasterToSlave"
-    sudo systemctl restart docker >> /nanolock/log.log 2>&1
+    sudo systemctl restart docker >> /Nivshemer/log.log 2>&1
     #read -p "Please insert your master ip? " master_ip
     sudo sed -i '/REPLICA_STATE=naster/d' /etc/environment
     echo 'REPLICA_STATE=slave' >> /etc/environment
     service cron restart
-    cd /nanolock/deployment-scripts
-    cp docker-compose-infra.yml docker-compose-infra-master.yml >> /nanolock/log.log 2>&1 
-    mv docker-compose-infra-slave.yml docker-compose-infra.yml -f >> /nanolock/log.log 2>&1
-    cd /nanolock/postgres
+    cd /Nivshemer/deployment-scripts
+    cp docker-compose-infra.yml docker-compose-infra-master.yml >> /Nivshemer/log.log 2>&1 
+    mv docker-compose-infra-slave.yml docker-compose-infra.yml -f >> /Nivshemer/log.log 2>&1
+    cd /Nivshemer/postgres
     cp postgres.conf postgres_master.conf 
     mv postgres_slave.conf postgres.conf
-    openssl aes-256-cbc -d -a -pbkdf2 -in $NANOLOCK_HOME/stores/.pos_enc.env -out $NANOLOCK_HOME/postgres/.postgres.env -pass pass:$nanop >> $NANOLOCK_HOME/log.log 2>&1 
-    openssl aes-256-cbc -d -a -pbkdf2 -in $NANOLOCK_HOME/stores/.gra_enc.env -out $NANOLOCK_HOME/grafana/.grafana.env -pass pass:$nanop >> $NANOLOCK_HOME/log.log 2>&1 
-    /nanolock/replication-setup.sh
-    docker-compose -f /nanolock/deployment-scripts/docker-compose-infra.yml up -d
+    openssl aes-256-cbc -d -a -pbkdf2 -in $Nivshemer_HOME/stores/.pos_enc.env -out $Nivshemer_HOME/postgres/.postgres.env -pass pass:$nanop >> $Nivshemer_HOME/log.log 2>&1 
+    openssl aes-256-cbc -d -a -pbkdf2 -in $Nivshemer_HOME/stores/.gra_enc.env -out $Nivshemer_HOME/grafana/.grafana.env -pass pass:$nanop >> $Nivshemer_HOME/log.log 2>&1 
+    /Nivshemer/replication-setup.sh
+    docker-compose -f /Nivshemer/deployment-scripts/docker-compose-infra.yml up -d
 
-    #rm -rfv  /nanolock/keycloak/.keycloak.env
-    rm -rfv  /nanolock/postgres/.postgres.env
-    rm -rfv  /nanolock/grafana/.grafana.env
+    #rm -rfv  /Nivshemer/keycloak/.keycloak.env
+    rm -rfv  /Nivshemer/postgres/.postgres.env
+    rm -rfv  /Nivshemer/grafana/.grafana.env
     # # Specify the path to the Netplan YAML file
     # netplan_file="/etc/netplan/*.yaml"
 
@@ -52,20 +52,20 @@ case "$1" in
     sudo sed -i '/REPLICA_STATE=slave/d' /etc/environment
     echo 'REPLICA_STATE=master' >> /etc/environment
     service cron restart
-    cd /nanolock/deployment-scripts
+    cd /Nivshemer/deployment-scripts
     cp docker-compose-infra.yml docker-compose-infra_slave.yml 
     mv _docker-compose-infra_master.yml docker-compose-infra.yml -f
-    cd /nanolock/postgres
+    cd /Nivshemer/postgres
     cp postgres.conf postgres.conf_slave.yml 
     mv postgres_master.conf postgres.conf -f
     # cp pg_hba.conf pg_hba.conf_slave.yml 
     # mv pg_hba_master.conf pg_hba.conf -f
-    openssl aes-256-cbc -d -a -pbkdf2 -in $NANOLOCK_HOME/stores/.pos_enc.env -out $NANOLOCK_HOME/postgres/.postgres.env -pass pass:$nanop >> $NANOLOCK_HOME/log.log 2>&1
-    openssl aes-256-cbc -d -a -pbkdf2 -in $NANOLOCK_HOME/stores/.gra_enc.env -out $NANOLOCK_HOME/grafana/.grafana.env -pass pass:$nanop >> $NANOLOCK_HOME/log.log 2>&1
-    docker-compose -f /nanolock/deployment-scripts/docker-compose-infra.yml up -d
-    #rm -rfv  /nanolock/keycloak/.keycloak.env
-    rm -rfv  /nanolock/postgres/.postgres.env
-    rm -rfv  /nanolock/grafana/.grafana.env
+    openssl aes-256-cbc -d -a -pbkdf2 -in $Nivshemer_HOME/stores/.pos_enc.env -out $Nivshemer_HOME/postgres/.postgres.env -pass pass:$nanop >> $Nivshemer_HOME/log.log 2>&1
+    openssl aes-256-cbc -d -a -pbkdf2 -in $Nivshemer_HOME/stores/.gra_enc.env -out $Nivshemer_HOME/grafana/.grafana.env -pass pass:$nanop >> $Nivshemer_HOME/log.log 2>&1
+    docker-compose -f /Nivshemer/deployment-scripts/docker-compose-infra.yml up -d
+    #rm -rfv  /Nivshemer/keycloak/.keycloak.env
+    rm -rfv  /Nivshemer/postgres/.postgres.env
+    rm -rfv  /Nivshemer/grafana/.grafana.env
     docker exec -u postgres postgres pg_ctl promote -D /var/lib/postgresql/data
     crontab -l | grep -v 'check_master_alive' | crontab -
 

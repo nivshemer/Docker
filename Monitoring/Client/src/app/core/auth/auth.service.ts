@@ -37,11 +37,11 @@ export class AuthService extends BaseApi {
      */
 
     get adminUser(): User {
-        return this._admin || (JSON.parse(localStorage.getItem('NanolockUser')) ?? null);
+        return this._admin || (JSON.parse(localStorage.getItem('NivshemerUser')) ?? null);
     }
 
     set adminUser(user: User) {
-        localStorage.setItem('NanolockUser', JSON.stringify(user));
+        localStorage.setItem('NivshemerUser', JSON.stringify(user));
         this._admin = user;
     }
 
@@ -50,11 +50,11 @@ export class AuthService extends BaseApi {
      */
 
     get language(): string {
-        return this._language || localStorage.getItem('NanolockLanguage') || this._translocoService.getDefaultLang();
+        return this._language || localStorage.getItem('NivshemerLanguage') || this._translocoService.getDefaultLang();
     }
 
     set language(language: string) {
-        localStorage.setItem('NanolockLanguage', language);
+        localStorage.setItem('NivshemerLanguage', language);
         this._language = language;
     }
 
@@ -161,7 +161,7 @@ export class AuthService extends BaseApi {
         // console.log(this._cookiesService.check('X-Access-Token'));
 
         // Remove the admin user from the local storage
-        localStorage.removeItem('NanolockUser');
+        localStorage.removeItem('NivshemerUser');
         this._cookiesService.deleteAll();
         this._cookiesService.delete('X-Access-Token-Exp');
         this._cookiesService.delete('X-Refresh-Token');

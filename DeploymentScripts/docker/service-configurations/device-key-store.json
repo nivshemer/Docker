@@ -38,7 +38,7 @@
                 "Port": 6379
             }
         ],
-        "Password": "nanolocksec",
+        "Password": "Nivshemersec",
         "Ssl": false
     },
     "TimeoutBatchBlock": {

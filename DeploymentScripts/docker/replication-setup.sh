@@ -5,7 +5,7 @@ function timer_complete {
   echo "PostgreSQL service is ready."
   # Add any additional actions you want to perform when the timer is complete
 }
-#chmod +x /nanolock/postgres/db_backup.sh
+#chmod +x /Nivshemer/postgres/db_backup.sh
 # Set the timer duration to 2 minutes and 5 seconds (125 seconds)
 timer_duration=90
 

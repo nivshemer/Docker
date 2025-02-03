@@ -50,7 +50,7 @@ import {AuthService} from '../auth/auth.service';
             deps: [TranslocoService],
             useFactory: (translocoService: TranslocoService): any => (): Promise<Translation> => {
                 const defaultLang = translocoService.getDefaultLang();
-                translocoService.setActiveLang(localStorage.getItem('NanolockLanguage') || defaultLang);
+                translocoService.setActiveLang(localStorage.getItem('NivshemerLanguage') || defaultLang);
                 return translocoService.load(defaultLang).toPromise();
             },
             multi: true

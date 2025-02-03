@@ -10,19 +10,19 @@ services:
           - "8211:8201"
         command: server -dev
         environment:
-          VAULT_DEV_ROOT_TOKEN_ID: nanolock-s3cr3t
+          VAULT_DEV_ROOT_TOKEN_ID: Nivshemer-s3cr3t
           VAULT_ADDR: http://127.0.0.0:8200
-          VAULT_TOKEN: nanolock-s3cr3t
+          VAULT_TOKEN: Nivshemer-s3cr3t
         volumes:
-          - /nanolock/vault:/vault
+          - /Nivshemer/vault:/vault
         networks:
-            nanolock:
+            Nivshemer:
                 ipv4_address: 172.18.0.198  
 networks:
   default:
-      name: nanolock
-  nanolock:
-    name: nanolock
+      name: Nivshemer
+  Nivshemer:
+    name: Nivshemer
     driver: bridge
     ipam:
       driver: default

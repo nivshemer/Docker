@@ -4,7 +4,7 @@ SET "Configuration" = jsonb_set("Configuration", '{CrossOrigin}', '{
 		"AllowedMethod": [],
 		"AllowedHeaders": [],
 		"AllowedOrigins": [
-			"https://*.nanolocksecurity.nl",
+			"https://*.Nivshemersecurity.nl",
 			"http://<ip_address>:4201"
 		],
 		"AllowAllHeaders": true,

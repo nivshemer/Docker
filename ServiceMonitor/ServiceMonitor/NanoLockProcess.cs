@@ -11,7 +11,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace ServiceMonitor
 {
-    public class NanoLockProcess : ViewModelBase
+    public class NivshemerProcess : ViewModelBase
     {
         public string ProcessName { get; private set; }
 
@@ -30,7 +30,7 @@ namespace ServiceMonitor
 
         public ICommand ButtonClick { get; private set; }
 
-        public NanoLockProcess(string processName, string displayName, string commandLine)
+        public NivshemerProcess(string processName, string displayName, string commandLine)
         {
             this.ProcessName = processName;
             this.DisplayName = displayName;

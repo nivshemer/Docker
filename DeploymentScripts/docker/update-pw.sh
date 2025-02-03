@@ -8,9 +8,9 @@ update_file() {
 
     if [ -f "$file_path" ]; then
         sed -i -e "s/$search/$replace/g" "$file_path"
-        echo "Updated $file_path" >> $NANOLOCK_HOME/log.log 2>&1
+        echo "Updated $file_path" >> $Nivshemer_HOME/log.log 2>&1
     else
-        echo "Warning: File $file_path does not exist." >> $NANOLOCK_HOME/log.log 2>&1
+        echo "Warning: File $file_path does not exist." >> $Nivshemer_HOME/log.log 2>&1
     fi
 }
 
@@ -40,15 +40,15 @@ elif [ "$REPLY" == "POSTGRES" ]; then
         update_file "$script" "POSTGRES_PW" "$REPLY2"
     done
 
-    update_file "postgres/init.sql" "nanolocksec" "$REPLY2"
-    update_file "postgres/auditfailedlogin.sql" "password 'nanolocksec'" "password '$REPLY2'"
-    update_file "netdata/plugins/python/postgres.conf" "password: nanolocksec" "password: $REPLY2"
-    update_file "postgres/db_backup.sh" "PGPASSWORD=nanolocksec" "PGPASSWORD=$REPLY2"
-    update_file "postgres/replica_users.sh" "nanolocksec" "$REPLY2"
-    update_file "replication-setup.sh" "PGPASSWORD=nanolocksec" "PGPASSWORD=$REPLY2"
+    update_file "postgres/init.sql" "Nivshemersec" "$REPLY2"
+    update_file "postgres/auditfailedlogin.sql" "password 'Nivshemersec'" "password '$REPLY2'"
+    update_file "netdata/plugins/python/postgres.conf" "password: Nivshemersec" "password: $REPLY2"
+    update_file "postgres/db_backup.sh" "PGPASSWORD=Nivshemersec" "PGPASSWORD=$REPLY2"
+    update_file "postgres/replica_users.sh" "Nivshemersec" "$REPLY2"
+    update_file "replication-setup.sh" "PGPASSWORD=Nivshemersec" "PGPASSWORD=$REPLY2"
 
     for config in service-configurations/assets.json service-configurations/device-key-store.json; do
-        update_file "$config" "Pwd=nanolocksec" "Pwd=$REPLY2"
+        update_file "$config" "Pwd=Nivshemersec" "Pwd=$REPLY2"
     done
 
 elif [ "$REPLY" == "factorytalkprog" ]; then

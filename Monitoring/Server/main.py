@@ -13,9 +13,9 @@ app = Bottle()
 
 # pgConn = psycopg2.connect(
 #   host="127.0.0.1",
-#   dbname="nanolocksec",
-#   user="nanolocksec",
-#   password="nanolocksec",
+#   dbname="Nivshemersec",
+#   user="Nivshemersec",
+#   password="Nivshemersec",
 #   cursor_factory=RealDictCursor
 # )
 

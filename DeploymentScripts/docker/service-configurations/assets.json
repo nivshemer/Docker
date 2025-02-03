@@ -8,7 +8,7 @@
 			}
 		],
 		"Database": 0,
-		"Password": "nanolocksec",
+		"Password": "Nivshemersec",
 		"AbortOnConnectFail": false,
 		"ConfigurationOptions": {
 			"KeepAlive": 5000,

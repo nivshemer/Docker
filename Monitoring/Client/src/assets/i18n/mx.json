@@ -23,7 +23,7 @@
     },
     "Common": {
         "Error": "Error",
-        "NanoLockOtDefenderIsActivated": "NanoLock OT Defender activado",
+        "NivshemerOtDefenderIsActivated": "Nivshemer OT Defender activado",
         "PoweredBy": "Tecnología de",
         "MaxLengthOfUsername": "La longitud máxima del nombre de usuario es {{count}}",
         "PasswordIsRequired": "Se requiere la contraseña",

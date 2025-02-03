@@ -66,8 +66,8 @@ processors:
 
 output.elasticsearch:
   hosts: 'http://elasticsearch:9200'
-  username: 'nanolocksec'
-  password: 'NanoLockSec!'
+  username: 'Nivshemersec'
+  password: 'NivshemerSec!'
   multiline.pattern: '^[[:space:]]'
   multiline.negate: false
   multiline.match: after

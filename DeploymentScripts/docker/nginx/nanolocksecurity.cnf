@@ -11,7 +11,7 @@ ST = Your State
 L  = Your City
 O  = Your Organization
 OU = Your Organizational Unit
-CN = *.nanolocksecurity.nl
+CN = *.Nivshemersecurity.nl
 
 [req_ext]
 subjectAltName = @alt_names
@@ -20,4 +20,4 @@ subjectAltName = @alt_names
 subjectAltName = @alt_names
 
 [alt_names]
-DNS.1 = *.nanolocksecurity.nl
+DNS.1 = *.Nivshemersecurity.nl

@@ -20,8 +20,8 @@ namespace ServiceMonitor
             {
                 MessageBox.Show(e.ExceptionObject.ToString(), "Application Error", MessageBoxButton.OK, MessageBoxImage.Error);
             };
-            var processes = JsonConvert.DeserializeObject<NanoLockProcessInformation[]>(Settings.Default.Processes)
-                .Select(p => new NanoLockProcess(p.ProcessName, p.DisplayName, p.CommandLine)).ToArray();
+            var processes = JsonConvert.DeserializeObject<NivshemerProcessInformation[]>(Settings.Default.Processes)
+                .Select(p => new NivshemerProcess(p.ProcessName, p.DisplayName, p.CommandLine)).ToArray();
             var dataContext = new ProcessMonitor(processes);
             var window = new MainWindow { DataContext = dataContext };
             dataContext.Start();

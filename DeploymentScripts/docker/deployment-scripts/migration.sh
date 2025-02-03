@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Check and set NanoLock home directory
-if [[ -z "${NANOLOCK_HOME}" ]]; then
-  export $(cat /etc/.nanolock_env | xargs) >> /nanolock/log.log 2>&1
+# Check and set Nivshemer home directory
+if [[ -z "${Nivshemer_HOME}" ]]; then
+  export $(cat /etc/.Nivshemer_env | xargs) >> /Nivshemer/log.log 2>&1
 fi
-if [[ -f ${NANOLOCK_HOME}/deployment-scripts/domain-names.env ]]; then
-  export $(cat ${NANOLOCK_HOME}/deployment-scripts/domain-names.env | xargs)
+if [[ -f ${Nivshemer_HOME}/deployment-scripts/domain-names.env ]]; then
+  export $(cat ${Nivshemer_HOME}/deployment-scripts/domain-names.env | xargs)
 fi
 
 # Utility functions
@@ -151,7 +151,7 @@ get_server_configuration() {
 
 # Main operation
 invoke_after_install_operations() {
-  print_info "NanoLock home directory: $NANOLOCK_HOME"
+  print_info "Nivshemer home directory: $Nivshemer_HOME"
 
   configuration=$(get_server_configuration)
 
@@ -159,9 +159,9 @@ invoke_after_install_operations() {
   # Simulate update configuration logic here
 
   print_info "Migrating RabbitMQ..."
-  migrate_rabbitmq "$NANOLOCK_HOME/deployment-scripts/rabbit_mq_configuration.json"
+  migrate_rabbitmq "$Nivshemer_HOME/deployment-scripts/rabbit_mq_configuration.json"
 
-  #start_nanolock_services
+  #start_Nivshemer_services
 }
 
 # Start script execution

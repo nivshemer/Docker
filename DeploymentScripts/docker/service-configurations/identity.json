@@ -1,8 +1,8 @@
 {
 	"AllowedHosts": "*",
-	"IssuerUri": "https://dev-30-auth.nanolocksecurity.nl/auth/realms/nanolocksec/",
+	"IssuerUri": "https://dev-30-auth.Nivshemersecurity.nl/auth/realms/Nivshemersec/",
 	"Jwt": {
-		"Issuer": "nanolocksecurity.nl",
+		"Issuer": "Nivshemersecurity.nl",
 		"RefreshTokenValidityInMinutes": "640",
 		"TokenValidityInMinutes": "5"
 	},

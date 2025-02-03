@@ -5,11 +5,11 @@ GRAFANA_URL="localhost:3000"
 
 # Admin credentials
 ADMIN_USER="admin"
-ADMIN_PASSWORD="NanoLockSec!"
+ADMIN_PASSWORD="NivshemerSec!"
 
 # New user details
 NEW_USER="viewer"
-NEW_USER_PASSWORD="nanolocksec"
+NEW_USER_PASSWORD="Nivshemersec"
 
 # Create new user
 response=$(curl -s -X POST "http://${ADMIN_USER}:${ADMIN_PASSWORD}@${GRAFANA_URL}/api/admin/users" \

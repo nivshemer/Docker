@@ -9,5 +9,5 @@ elasticsearch.hosts: [ "http://elasticsearch:9200" ]
 monitoring.ui.container.elasticsearch.enabled: true
 server.basePath: "/logs"
 
-elasticsearch.username: "kibananolocksec"
-elasticsearch.password: "kibananolocksec"
+elasticsearch.username: "kibaNivshemersec"
+elasticsearch.password: "kibaNivshemersec"

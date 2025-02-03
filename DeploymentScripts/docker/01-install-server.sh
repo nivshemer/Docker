@@ -13,31 +13,31 @@ function create_folder_if_not_exists() {
     if [ ! -d "$folder_path" ]; then
         # If it doesn't exist, create it
         mkdir -p "$folder_path"
-        echo "Folder created: $folder_path" >> /nanolock/log.log 2>&1
+        echo "Folder created: $folder_path" >> /Nivshemer/log.log 2>&1
     else
-        echo "Folder already exists: $folder_path" >> /nanolock/log.log 2>&1
+        echo "Folder already exists: $folder_path" >> /Nivshemer/log.log 2>&1
     fi
 }
 
-function write_nanolock_services_script() {
+function write_Nivshemer_services_script() {
 	echo "#!/bin/bash" > "$1"
-	echo 'if [ -f "${NANOLOCK_HOME}/deployment-scripts/.env" ]; then' >> "$1"
-	echo "	export \$(sed -r 's/^\s*(.*\S)*\s*\$/\1/;/^\$/d' \${NANOLOCK_HOME}/deployment-scripts/.env | xargs)" >> "$1"
+	echo 'if [ -f "${Nivshemer_HOME}/deployment-scripts/.env" ]; then' >> "$1"
+	echo "	export \$(sed -r 's/^\s*(.*\S)*\s*\$/\1/;/^\$/d' \${Nivshemer_HOME}/deployment-scripts/.env | xargs)" >> "$1"
 	echo 'fi' >> "$1"
-	echo "docker-compose -f \$NANOLOCK_HOME/deployment-scripts/docker-compose.yml \$@" >> "$1"
+	echo "docker-compose -f \$Nivshemer_HOME/deployment-scripts/docker-compose.yml \$@" >> "$1"
 	chmod +x "$1"
 }
 
-function write_nanolock_dockers_script() {
+function write_Nivshemer_dockers_script() {
 	echo "#!/bin/bash" > "$1"
-	echo 'if [ -f "${NANOLOCK_HOME}/deployment-scripts/.env" ]; then' >> "$1"
-	echo "	export \$(sed -r 's/^\s*(.*\S)*\s*\$/\1/;/^\$/d' \${NANOLOCK_HOME}/deployment-scripts/.env | xargs)" >> "$1"
+	echo 'if [ -f "${Nivshemer_HOME}/deployment-scripts/.env" ]; then' >> "$1"
+	echo "	export \$(sed -r 's/^\s*(.*\S)*\s*\$/\1/;/^\$/d' \${Nivshemer_HOME}/deployment-scripts/.env | xargs)" >> "$1"
 	echo 'fi' >> "$1"
-	echo "docker-compose -f \$NANOLOCK_HOME/deployment-scripts/docker-compose-infra.yml -f \$NANOLOCK_HOME/deployment-scripts/docker-compose.yml  \$@" >> "$1"
+	echo "docker-compose -f \$Nivshemer_HOME/deployment-scripts/docker-compose-infra.yml -f \$Nivshemer_HOME/deployment-scripts/docker-compose.yml  \$@" >> "$1"
 	chmod +x "$1"
 }
 
-function write_nanolock_stats_script() {
+function write_Nivshemer_stats_script() {
 	echo "#!/bin/bash" > "$1"
 	echo 'COLUMN=${1:-2}' >> "$1"
 	echo 'watch "docker stats --format \"table {{.Name}}\t{{.CPUPerc}}\t{{.MemPerc}}\" --no-stream | sort -rnk ${COLUMN}"' >> "$1"
@@ -140,9 +140,9 @@ else
 fi
 
 USER_NAME=$(logname)
-echo 'NANOLOCK_HOME=/nanolock' >> /etc/environment 
+echo 'Nivshemer_HOME=/Nivshemer' >> /etc/environment 
 echo "INSTALL_DIR=/tmp" | sudo tee -a /etc/environment 
-echo 'nanop=NanoLockSec!' >> /etc/environment 
+echo 'nanop=NivshemerSec!' >> /etc/environment 
 echo "USER_NAME=$USER_NAME" | sudo tee -a /etc/environment 
 source /etc/environment
 if [ -d "/tmp/utilities" ]; then
@@ -170,39 +170,39 @@ fi
 
 chmod +x /usr/local/bin/docker-compose || { echo "command failed"; exit 1; }
 
-create_folder_if_not_exists /nanolock
-create_folder_if_not_exists /nanolock/postgres
-create_folder_if_not_exists /nanolock/postgres/data
-create_folder_if_not_exists /nanolock/assets
-create_folder_if_not_exists /nanolock/assets/files
-create_folder_if_not_exists /nanolock/elasticsearch
-create_folder_if_not_exists /nanolock/elasticsearch/logs
-create_folder_if_not_exists /nanolock/elasticsearch/data
-create_folder_if_not_exists /nanolock/logstash
-create_folder_if_not_exists /nanolock/kibana
-create_folder_if_not_exists /nanolock/vault
-create_folder_if_not_exists /nanolock/vault/config
-create_folder_if_not_exists /nanolock/netdata
-create_folder_if_not_exists /nanolock/netdata/plugins
-create_folder_if_not_exists /nanolock/netdata/logs
-create_folder_if_not_exists /nanolock/netdata/plugins/python
-create_folder_if_not_exists /var/log/nanolock
+create_folder_if_not_exists /Nivshemer
+create_folder_if_not_exists /Nivshemer/postgres
+create_folder_if_not_exists /Nivshemer/postgres/data
+create_folder_if_not_exists /Nivshemer/assets
+create_folder_if_not_exists /Nivshemer/assets/files
+create_folder_if_not_exists /Nivshemer/elasticsearch
+create_folder_if_not_exists /Nivshemer/elasticsearch/logs
+create_folder_if_not_exists /Nivshemer/elasticsearch/data
+create_folder_if_not_exists /Nivshemer/logstash
+create_folder_if_not_exists /Nivshemer/kibana
+create_folder_if_not_exists /Nivshemer/vault
+create_folder_if_not_exists /Nivshemer/vault/config
+create_folder_if_not_exists /Nivshemer/netdata
+create_folder_if_not_exists /Nivshemer/netdata/plugins
+create_folder_if_not_exists /Nivshemer/netdata/logs
+create_folder_if_not_exists /Nivshemer/netdata/plugins/python
+create_folder_if_not_exists /var/log/Nivshemer
 
-chown -R "$USER_NAME" /nanolock/vault/config
-chmod -R 755 /nanolock/vault/config
+chown -R "$USER_NAME" /Nivshemer/vault/config
+chmod -R 755 /Nivshemer/vault/config
 
-echo Chaning owner to: "$USER_NAME" >> /nanolock/log.log 2>&1
-chown -R "$USER_NAME" /nanolock || { echo "command failed"; exit 1; }
-chown -R "$USER_NAME" /var/log/nanolock || { echo "command failed"; exit 1; }
-chmod 777 /var/log/nanolock || { echo "command failed"; exit 1; }
+echo Chaning owner to: "$USER_NAME" >> /Nivshemer/log.log 2>&1
+chown -R "$USER_NAME" /Nivshemer || { echo "command failed"; exit 1; }
+chown -R "$USER_NAME" /var/log/Nivshemer || { echo "command failed"; exit 1; }
+chmod 777 /var/log/Nivshemer || { echo "command failed"; exit 1; }
 echo 'COMPOSE_IGNORE_ORPHANS=True' >> /etc/environment 
 echo 'LD_LIBRARY_PATH=/usr/local/lib' >> /etc/environment 
-write_nanolock_dockers_script "/usr/local/bin/nanolock-dockers" 
-write_nanolock_services_script "/usr/local/bin/nanolock-services" 
-write_nanolock_stats_script "/usr/local/bin/nanolock-stats" 
-write_script "/usr/local/bin/nanolock-infra" "docker-compose -f \$NANOLOCK_HOME/deployment-scripts/docker-compose-infra.yml"
-# write_script "/usr/local/bin/nanolock-migrate" "docker-compose -f \$NANOLOCK_HOME/deployment-scripts/docker-compose-migrate.yml"
-write_script "/usr/local/bin/nanolock-watch" "watch 'docker ps -a --format \"table {{.Names}}\\t{{.Status}}\"'"
+write_Nivshemer_dockers_script "/usr/local/bin/Nivshemer-dockers" 
+write_Nivshemer_services_script "/usr/local/bin/Nivshemer-services" 
+write_Nivshemer_stats_script "/usr/local/bin/Nivshemer-stats" 
+write_script "/usr/local/bin/Nivshemer-infra" "docker-compose -f \$Nivshemer_HOME/deployment-scripts/docker-compose-infra.yml"
+# write_script "/usr/local/bin/Nivshemer-migrate" "docker-compose -f \$Nivshemer_HOME/deployment-scripts/docker-compose-migrate.yml"
+write_script "/usr/local/bin/Nivshemer-watch" "watch 'docker ps -a --format \"table {{.Names}}\\t{{.Status}}\"'"
 echo 'vm.max_map_count=262144' >> /etc/sysctl.conf
 echo 'net.ipv4.icmp_echo_ignore_all=1' >> /etc/sysctl.conf
 echo 'net.core.netdev_budget=2400' >> /etc/sysctl.conf

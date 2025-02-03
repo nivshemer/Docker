@@ -1,1 +1,1 @@
-create user nano_replicator with replication login encrypted password 'nanolocksec';
+create user nano_replicator with replication login encrypted password 'Nivshemersec';

@@ -34,8 +34,8 @@
             "@layout": "${message}",
             "@xsi:type": "ElasticSearch",
             "@requireAuth": "true",
-			      "@username":"nanolocksec",
-            "@password":"NanoLockSec!",
+			      "@username":"Nivshemersec",
+            "@password":"NivshemerSec!",
             "@documentType": "Layout",
             "@includeAllProperties": "true"
           },
@@ -47,8 +47,8 @@
     "extensions": {
       "add": [
         { "@assembly": "NLog.Web.AspNetCore" },
-        { "@assembly": "NanoLockSec.Core.Logging" },
-		{ "@assembly": "NanoLockSec.Core.Logging.ElasticSearch" }
+        { "@assembly": "NivshemerSec.Core.Logging" },
+		{ "@assembly": "NivshemerSec.Core.Logging.ElasticSearch" }
       ]
     },
     "@autoReload": "true",

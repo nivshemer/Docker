@@ -8,7 +8,7 @@
 			}
 		],
 		"Database": 0,
-		"Password": "nanolocksec",
+		"Password": "Nivshemersec",
 		"AbortOnConnectFail": false,
 		"ConfigurationOptions": {
 			"KeepAlive": 5000,
@@ -44,7 +44,7 @@
 		"AllowedMethod": [],
 		"AllowedHeaders": [],
 		"AllowedOrigins": [
-			"https://*.nanolocksecurity.nl",
+			"https://*.Nivshemersecurity.nl",
 			"http://<ip_address>:4201",
 			"http://localhost:4201"
 		],

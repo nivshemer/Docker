@@ -4,6 +4,6 @@ echo "To delete all the images,"
 
 #docker rmi -f $(docker images -aq)
 
-rm -rfv /nanolock
+rm -rfv /Nivshemer
 
-sudo sed -i '/nanolock/d' /etc/hosts
+sudo sed -i '/Nivshemer/d' /etc/hosts

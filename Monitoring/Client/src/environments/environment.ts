@@ -4,11 +4,11 @@
 
 export const environment = {
     production: false,
-    // baseApi: 'https://nl-api.nanolocksecurity.nl/api/'
-    // baseApi: 'https://staging-api.nanolocksecurity.nl/api/'
-    // baseApi: 'https://dev01-api.nanolocksecurity.nl/api/'
+    // baseApi: 'https://nl-api.Nivshemersecurity.nl/api/'
+    // baseApi: 'https://staging-api.Nivshemersecurity.nl/api/'
+    // baseApi: 'https://dev01-api.Nivshemersecurity.nl/api/'
     baseApi: 'http://localhost:8070/api/',
-    baseApiData: 'http://dev01.nanolocksecurity.nl:8082/continuersStatus'
+    baseApiData: 'http://dev01.Nivshemersecurity.nl:8082/continuersStatus'
 };
 
 /*

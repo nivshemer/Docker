@@ -52,7 +52,7 @@ elif [ $yn == n ]
 		sed -i -e s/"MASTER_IP_ADDRESS"/"$varmaster"/g "check_master_alive.sh" || exit 1
 		sed -i -e s/"MASTER_IP_ADDRESS"/"$varmaster"/g "switch-master-slave.sh" || exit 1
 		sed -i -e s/"SLAVE_IP_ADDRESS"/"$varslave"/g "switch-master-slave.sh" || exit 1
-		(crontab -l 2>/dev/null; echo "*/$mintues * * * * /nanolock/check_master_alive.sh") | crontab -
+		(crontab -l 2>/dev/null; echo "*/$mintues * * * * /Nivshemer/check_master_alive.sh") | crontab -
 		service cron restart
 		fi
 		echo 'REPLICA_STATE=slave' >> /etc/environment

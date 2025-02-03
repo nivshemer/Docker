@@ -22,7 +22,7 @@ function reportReplicationSync {
 function executeQueryString(){
 	local query=$1
 	if [ -n "$query" ]; then
-			result=$(docker exec postgres psql 'postgresql://nanolocksec:$PWD_VALUE@localhost:5432/nanolocksec' -t -A -c "$query")
+			result=$(docker exec postgres psql 'postgresql://Nivshemersec:$PWD_VALUE@localhost:5432/Nivshemersec' -t -A -c "$query")
             if [[ $result == *"psql: error"* ]]; then
                 echo "Error: Failed to execute query"
                 reportReplicationSync 1 
@@ -90,7 +90,7 @@ function sendContainerErrorReplicationStatus(){
 	fi
 }
 
-openssl aes-256-cbc -d -a -pbkdf2 -in $NANOLOCK_HOME/stores/.sec_enc.env -out $NANOLOCK_HOME/stores/.sec_enc1.env -pass pass:$nanop
+openssl aes-256-cbc -d -a -pbkdf2 -in $Nivshemer_HOME/stores/.sec_enc.env -out $Nivshemer_HOME/stores/.sec_enc1.env -pass pass:$nanop
 
 # Extract the value of Pwd
 PWD_VALUE=$(grep -oP 'Pwd=\K[^;]+' "$FILE" | head -n 1)
@@ -113,5 +113,5 @@ for ((i = 1; i <= 10; i++)); do
     sleep 30
 done
 
-rm -rf $NANOLOCK_HOME/stores/.sec_enc1.env
+rm -rf $Nivshemer_HOME/stores/.sec_enc1.env
 

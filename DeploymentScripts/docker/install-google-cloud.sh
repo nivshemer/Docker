@@ -9,7 +9,7 @@ curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /
 apt update && apt install -y google-cloud-sdk
 
 
-key_file="nanolock-server.json"
+key_file="Nivshemer-server.json"
 gcloud auth activate-service-account --key-file $key_file;
 # while true; do
 #     read -p "Do you wish to activate service account? " yn

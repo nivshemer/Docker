@@ -18,13 +18,13 @@
             "ForgotPassword": "Forgot password",
             "LogIn": "Log in",
             "Title": "Login",
-            "Welcome": "Welcome to Nanolock MoT Monitoring tool"
+            "Welcome": "Welcome to Nivshemer MoT Monitoring tool"
         }
     },
     "Common": {
         "Error": "Error",
         "MaxLengthOfUsername": "Max length of username is {{count}}",
-        "NanoLockOtDefenderIsActivated": "NanoLock OT Defender is activated",
+        "NivshemerOtDefenderIsActivated": "Nivshemer OT Defender is activated",
         "PasswordIsRequired": "Password is required",
         "PoweredBy": "Powered by",
         "UsernameIsRequired": "Username is required"

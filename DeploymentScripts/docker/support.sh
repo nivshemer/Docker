@@ -45,9 +45,9 @@ echo "Valid support email entered: $supportemail"
 
     if [ -f "support/help.component.html" ] ; then
         sed -i -e s/"><"/">$supportnumber<"/g "support/help.component.html"
-        sed -i 's/support@nanolocksecurity.com/$supportemail/g' "support/help.component.html"
-        outputString=$(echo "support&#64;nanolocksecurity.com" | sed "s/support&#64;nanolocksecurity.com/$supportemail/g")
-        sed -i -e s/"support&#64;nanolocksecurity.com"/"$outputString"/g "support/help.component.html"
+        sed -i 's/support@Nivshemersecurity.com/$supportemail/g' "support/help.component.html"
+        outputString=$(echo "support&#64;Nivshemersecurity.com" | sed "s/support&#64;Nivshemersecurity.com/$supportemail/g")
+        sed -i -e s/"support&#64;Nivshemersecurity.com"/"$outputString"/g "support/help.component.html"
         sed -i '12s/@/\&#64;/g' "support/help.component.html"
     else
         echo "file support/help.component.html doesn't exists"

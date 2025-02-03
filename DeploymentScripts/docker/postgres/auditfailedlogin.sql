@@ -1,7 +1,7 @@
 create extension if not exists postgres_fdw; 
-CREATE SERVER if not exists nanolocksec FOREIGN DATA WRAPPER postgres_fdw OPTIONS (host 'localhost', dbname 'otd', port '5432');
-CREATE USER mapping if not exists FOR CURRENT_USER server nanolocksec OPTIONS (user 'nanolocksec', password 'nanolocksec');
-import foreign schema public from server nanolocksec into public;
+CREATE SERVER if not exists Nivshemersec FOREIGN DATA WRAPPER postgres_fdw OPTIONS (host 'localhost', dbname 'otd', port '5432');
+CREATE USER mapping if not exists FOR CURRENT_USER server Nivshemersec OPTIONS (user 'Nivshemersec', password 'Nivshemersec');
+import foreign schema public from server Nivshemersec into public;
 
 create extension if not exists "uuid-ossp";
 

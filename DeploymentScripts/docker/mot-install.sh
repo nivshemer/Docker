@@ -10,7 +10,7 @@ fi
 rm -f /tmp/*.zip
 
 # Log file path
-log_path="/nanolock/log.log"
+log_path="/Nivshemer/log.log"
 
 # Extract the directory path from the log file
 log_dir=$(dirname "$log_path")
@@ -28,7 +28,7 @@ if [ ! -f "$log_path" ]; then
 fi
 
 # Run delete-env.sh script if it exists
-delete_script="/nanolock/delete-env.sh"
+delete_script="/Nivshemer/delete-env.sh"
 if [ -f "$delete_script" ]; then
     echo "Running delete script: $delete_script" >> "$log_path" 2>&1
     bash "$delete_script" >> "$log_path" 2>&1
@@ -93,8 +93,8 @@ fi
 # Handle zip files in /tmp
 cd /tmp || exit 1
 if ls *.zip >/dev/null 2>&1; then
-    mv *.zip nanolock_services.zip
-    unzip -q nanolock_services.zip
+    mv *.zip Nivshemer_services.zip
+    unzip -q Nivshemer_services.zip
     chmod +x *.sh
     sudo -E ./01-install-server.sh
 else

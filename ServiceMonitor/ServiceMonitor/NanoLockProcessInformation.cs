@@ -1,6 +1,6 @@
 ﻿namespace ServiceMonitor
 {
-    public class NanoLockProcessInformation
+    public class NivshemerProcessInformation
     {
         public string ProcessName { get; set; }
 

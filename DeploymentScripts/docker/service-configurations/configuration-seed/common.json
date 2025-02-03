@@ -9,12 +9,12 @@
 	"Redis": {
 		"Hosts": [
 			{
-				"Host": "mem3.nanolocksecurity.nl",
+				"Host": "mem3.Nivshemersecurity.nl",
 				"Port": 6379
 			}
 		],
 		"Database": 19,
-		"Password": "nanolocksec",
+		"Password": "Nivshemersec",
 		"ConfigurationOptions": {
 			"ConnectTimeout": 180000,
 			"SyncTimeout": 180000,
@@ -26,9 +26,9 @@
 		"Ssl": false
 	},
 	"RabbitMQ": {
-		"Server": "mem1.nanolocksecurity.nl",
-		"Password": "nanolocksec",
-		"UserName": "nanolocksec",
+		"Server": "mem1.Nivshemersecurity.nl",
+		"Password": "Nivshemersec",
+		"UserName": "Nivshemersec",
 		"VirtualHost": "/dev/inbar"
 	},
 	"MemoryCache": {

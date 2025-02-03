@@ -5,7 +5,7 @@ myip=$(hostname -I | cut -d' ' -f1)
 
 # Prompt for subdomain and domain name
 while true; do
-    read -p "Please insert your subdomain name and domain name (e.g., otd.nanolocksecurity.nl): " input
+    read -p "Please insert your subdomain name and domain name (e.g., otd.Nivshemersecurity.nl): " input
     
     if [[ -z "$input" ]]; then
         echo "Input cannot be empty. Please try again."
@@ -21,7 +21,7 @@ while true; do
         echo "Domain: $vardomain"
         break
     else
-        echo "Invalid format. Please enter a subdomain and domain (e.g., otd.nanolocksecurity.nl)."
+        echo "Invalid format. Please enter a subdomain and domain (e.g., otd.Nivshemersecurity.nl)."
     fi
 done
 

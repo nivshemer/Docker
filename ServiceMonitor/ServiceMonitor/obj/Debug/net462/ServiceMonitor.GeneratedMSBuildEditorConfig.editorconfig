@@ -1,5 +1,5 @@
 is_global = true
 build_property.RootNamespace = ServiceMonitor
-build_property.ProjectDir = c:\Code\NanoLockSec.Tools\ServiceMonitor\ServiceMonitor\
+build_property.ProjectDir = c:\Code\NivshemerSec.Tools\ServiceMonitor\ServiceMonitor\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
